@@ -1,6 +1,6 @@
 var intellimeetApp = angular.module("intellimeetWeb", []);
-
-intellimeetApp.constant("HOST", "http://localhost:8080");
+console.log(location.protocol+"//"+window.location.host)
+intellimeetApp.constant("HOST", window.location.host);
 intellimeetApp.constant("SESSION_COMMENCEMENT", "09:30");
 
 intellimeetApp.controller("HomeController", function ($scope, $http, HOST, ScheduleService, DashboardService, SESSION_COMMENCEMENT) {
