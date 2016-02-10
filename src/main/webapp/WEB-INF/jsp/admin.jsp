@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="./images/icon/meeting-icon.svg"/>
 
-    <title>| Intellimeet</title>
+    <title>KnowledgeMeet | TOTHENEW-Digital</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="./css/bootstrap.min.css" rel="stylesheet">
@@ -115,7 +115,7 @@
             <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
             <span class="icon-bar"></span> <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand fa fa-users" href="#/">&nbsp;&nbsp;Intellimeet</a>
+        <a class="navbar-brand fa fa-users" href="">&nbsp;&nbsp;Knowledge Meet</a>
     </div>
 
     <ul class="nav navbar-top-links navbar-right">

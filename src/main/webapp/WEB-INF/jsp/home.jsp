@@ -14,7 +14,7 @@
 
 
     <!-- Favicons -->
-    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="shortcut icon" href="./images/icon/meeting-icon.svg"/>
 
     <!-- Page Title -->
     <title>KnowledgeMeet | TOTHENEW-Digital</title>

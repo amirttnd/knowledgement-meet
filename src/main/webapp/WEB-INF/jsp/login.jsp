@@ -7,9 +7,10 @@
     <link href="./css/bootstrap.min.css" rel="stylesheet">
 
     <link href="./css/sb-admin-2.css" rel="stylesheet">
+    <link rel="shortcut icon" href="./images/icon/meeting-icon.svg"/>
 
 
-    <title></title>
+    <title>| Login</title>
 </head>
 <body>
 <div class="container">
