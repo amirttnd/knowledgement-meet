@@ -1,0 +1,48 @@
+var intellimeetApp = angular.module("intellimeetApp", ["ui.router", "ngMaterial", 'ngAnimate', 'ui.bootstrap','ngNotify']);
+intellimeetApp.constant("HOST", "http://localhost:8080");
+intellimeetApp.constant("CURRENT_MONTH","CURRENT_MONTH")
+intellimeetApp.config(function ($stateProvider) {
+    $stateProvider
+        .state("root", {
+            url: "",
+            templateUrl: "./app/components/dashboard/index.html"
+        })
+        .state("login", {
+            url: "/login",
+            templateUrl: "./app/components/login/login.html"
+        })
+        .state("topic", {
+            url: "/topics",
+            templateUrl: "./app/components/topic/list.html"
+        })
+
+        .state("topic.create", {
+            url: "/create",
+            templateUrl: "./app/components/topic/create.html"
+        })
+        .state("dashboard", {
+            url: "/dashboard",
+            templateUrl: "./app/components/dashboard/index.html"
+        })
+        .state("session", {
+            url: "/sessions",
+            templateUrl: "./app/components/session/list.html"
+        })
+        .state("schedule", {
+            url: "/schedule",
+            templateUrl: "./app/components/schedule/index.html",
+            controller: "ScheduleController"
+        })
+
+        .state("schedule.create", {
+            url: "/create",
+            templateUrl: "./app/components/schedule/create.html",
+            controller: "ScheduleController"
+        })
+
+        .state("paper", {
+            url: "/paper",
+            templateUrl: "./app/components/paper/list.html"
+        })
+
+});

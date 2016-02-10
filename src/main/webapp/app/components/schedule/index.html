@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div class="row">
+    <div class="page-header">
+        <h3>Full Day Schedule</h3>
+    </div>
+</div>
+<div class="row" ng-controller="ScheduleController as schedule" ng-init="schedule.init()">
+    <!--<div>-->
+    <!--<a href="" class="btn btn-danger btn-block fa fa-edit" data-target="#updateScheduleModal"-->
+    <!--data-toggle="modal"> Update-->
+    <!--Schedule</a>-->
+    <!--<hr>-->
+    <!--</div>-->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <i class="fa fa-clock-o fa-fw"></i> FULL DAY SCHEDULE
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <h1 class="text-align-center"><span class="label label-info">{{schedule.scheduleJSON.intellimeetDay}}</span>
+            </h1>
+            <hr>
+            <ul class="timeline">
+                <li>
+                    <div class="timeline-badge info">
+                        <i class="fa fa-arrow-down badge-custom-margin-top"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4 class="text-info"> Breakfast</h4>
+
+                            <p>
+                                <small class="text-muted label label-danger"><i class="fa fa-clock-o"></i>
+                                    {{schedule.scheduleJSON.breakFast}}
+                                </small>
+                            </p>
+
+                        </div>
+                    </div>
+                </li>
+                <li class="timeline-inverted">
+                    <div class="timeline-badge info">
+                        <i class="fa fa-arrow-down badge-custom-margin-top"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <h4 class="text-info"> Session Commencement</h4>
+
+                        <p>
+                            <small class="text-muted label label-success"><i class="fa fa-clock-o"></i>
+                                {{schedule.scheduleJSON.sessionCommencement}}
+                            </small>
+                        </p>
+
+
+                    </div>
+                </li>
+                <li>
+                    <div class="timeline-badge info">
+                        <i class="fa fa-arrow-down badge-custom-margin-top"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <h4 class="text-info "> Lunch</h4>
+
+                        <div>
+                            <blockquote>
+                                <small class="text-muted " ng-repeat="lunch in schedule.scheduleJSON.lunch track by $index">
+
+                                    <i class="fa fa-clock-o"></i>
+                                    {{lunch}}<br>
+                                </small>
+                            </blockquote>
+                            <span class="label label-warning"> +45 min according to your schedule.</span>
+                            <br><br>
+                        </div>
+
+                    </div>
+                </li>
+
+                <li class="timeline-inverted">
+                    <div class="timeline-badge info">
+                        <i class="fa fa-arrow-down badge-custom-margin-top"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <h4 class="text-info"> Discussions & Feedback</h4>
+
+                        <p>
+                            <small class="text-muted label label-danger"><i class="fa fa-clock-o"></i>
+                                {{schedule.scheduleJSON.discussionAndFeedback}}
+                            </small>
+                        </p>
+
+                    </div>
+                </li>
+
+                <li class="">
+                    <div class="timeline-badge info">
+                        <i class="fa fa-arrow-down badge-custom-margin-top"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <h4 class="text-info"> Wrap Up</h4>
+
+                        <p>
+                            <small class="text-muted label label-default"><i class="fa fa-clock-o"></i>
+                                {{schedule.scheduleJSON.wrapUp}}
+                            </small>
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div>
+            <div id="updateScheduleModal" class="modal fade" aria-hidden="true" aria-labelledby="myModalLabel"
+                 role="dialog"
+                 tabindex="-1" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close" aria-hidden="true" data-dismiss="modal" type="button">×</button>
+                            <h4 id="myModalLabel" class="modal-title"><i class="fa fa-edit"></i> Update Schedule</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <md-content layout-padding>
+                                    <form name="scheduleForm">
+                                        <md-input-container class="md-block">
+                                            <label>Breakfast</label>
+                                            <input required name="breakFast" ng-model="schedule.breakFast"
+                                                   class="datetimepicker">
+
+                                            <div ng-messages="topic.name.$error">
+                                                <div ng-message="required">This is required.</div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container class="md-block">
+                                            <label> Session Commencement</label>
+                                            <input required name="sessionCommencement"
+                                                   ng-model="schedule.sessionCommencement">
+
+                                            <div ng-messages="topic.name.$error">
+                                                <div ng-message="required">This is required.</div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container class="md-block">
+                                            <label> Lunch</label>
+                                            <input required name="lunch" ng-model="schedule.lunch">
+
+                                            <div ng-messages="topic.name.$error">
+                                                <div ng-message="required">This is required.</div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container class="md-block">
+                                            <label> Discussions & Feedbacks</label>
+                                            <input required name="discussionAndFeedback"
+                                                   ng-model="schedule.discussionAndFeedback">
+
+                                            <div ng-messages="topic.name.$error">
+                                                <div ng-message="required">This is required.</div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container class="md-block">
+                                            <label> Wrap Up</label>
+                                            <input required name="wrapUp" ng-model="schedule.wrapUp">
+
+                                            <div ng-messages="topic.name.$error">
+                                                <div ng-message="required">This is required.</div>
+                                            </div>
+                                        </md-input-container>
+                                    </form>
+                                </md-content>
+                                <div>
+                                    <p class="pull-right">{{name}}</p>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger" data-dismiss="modal" type="button"
+                                    ng-disabled="scheduleForm.breakFast.$invalid ||
+                                scheduleForm.sessionCommencement.$invalid ||
+                                scheduleForm.lunch.$invalid ||
+                                scheduleForm.discussionAndFeedback.$invalid ||
+                                scheduleForm.wrapUp.$invalid"
+                                    ng-click="schedule.saveDefaultSchedule()">Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Create Topic</title>
+</head>
+<body>
+<div ng-controller="ScheduleController">
+    <md-content layout-padding>
+        <form name="topic">
+            <md-input-container class="md-block">
+                <label>Breakfast</label>
+                <input required name="breakFast" ng-model="breakFast" class="datetimepicker">
+
+                <div ng-messages="topic.name.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label> Session Commencement</label>
+                <input required name="breakFast" ng-model="breakFast">
+
+                <div ng-messages="topic.name.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label> Lunch</label>
+                <input required name="breakFast" ng-model="breakFast">
+
+                <div ng-messages="topic.name.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label> Discussions & Feedbacks</label>
+                <input required name="breakFast" ng-model="breakFast">
+
+                <div ng-messages="topic.name.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label> Wrap Up</label>
+                <input required name="breakFast" ng-model="breakFast">
+
+                <div ng-messages="topic.name.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+            </md-input-container>
+        </form>
+    </md-content>
+    <div>
+        <p class="pull-right">{{name}}</p>
+    </div>
+    <!--<script src="./js/datetime-picker/datetime.js"></script>-->
+</div>
+</body>
+</html>

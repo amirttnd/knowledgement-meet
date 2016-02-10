@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body>
+<div ng-controller="DashboardController as dashboard" ng-init="dashboard.init()">
+    <div class="row">
+        <div class="page-header">
+            <h3>
+                Dashboard
+                <div class="form-group custom-search-form col-xs-2 pull-right">
+                    <div class="">
+                        <input type="text" value="" class="form-control datetimepicker"
+                               placeholder="View Previous Knowledge Meet"/>
+                    </div>
+
+                </div>
+            </h3>
+        </div>
+    </div>
+
+    <div>
+        <a href=""
+           class="btn btn-danger btn-sm btn-block"
+           type="button" data-target="#addPresenter"
+           data-toggle="collapse"
+           data-keyboard="false"
+           data-backdrop="static"
+           uib-popover="Change last Knowledge Meet Date" popover-trigger="mouseenter">
+            <i class="fa fa-calendar"></i>
+            Change Knowledge Meet Date
+        </a>
+    </div>
+
+    <div id="addPresenter" class="collapse">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="col-xs-3">
+                    <form name="">
+                        <div class="input-group">
+                            <input id="datePickerForIntellimeet" ng-model="dashboard.changeDate" type="text" class="form-control input-sm" placeholder="Choose Date....!">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="dashboard.changeIntellimeetDate()">
+                                        Change
+                                    </button>
+                                </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-clock-o fa-fw"></i> Coming Intellimeet Session
+            </div>
+
+            <div class="panel-body">
+                <ul class="timeline">
+                    <li ng-repeat="session in dashboard.intellimeetJSON.sessions track by $index"
+                        ng-class="{false:'timeline-inverted'}[$index%2==0]">
+
+                        <div class="timeline-badge warning">
+                            <i class="fa fa-check badge-custom-margin-top"></i>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">{{session.paper.topic.name}}</h4>
+
+                                <p>
+                                    <small class="text-muted"><i class="fa fa-clock-o"></i>
+                                        {{dashboard.intellimeetJSON.intellimeetDate}}
+                                    </small>
+                                </p>
+
+                            </div>
+                            <div class="timeline-body">
+                                <p>
+                                    {{session.paper.agenda}}
+                                </p>
+                                <br>
+
+                                <div class="list-group">
+                                    <div class="list-group-item" ng-repeat="presenter in session.presenters">
+                                        <i class="fa fa-user fa-fw"></i>
+                                    <span class="small"
+                                            >{{presenter}}</span>
+                                    <span class="pull-right text-muted small">
+                                        <em>Presenter</em>
+                                    </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

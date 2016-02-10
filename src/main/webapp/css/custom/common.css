@@ -1,0 +1,42 @@
+
+
+.font-10px {
+    font-size: 10px;
+}
+
+.font-11px {
+    font-size: 11px;
+}
+
+.font-12px {
+    font-size: 12px;
+}
+
+.font-13px {
+    font-size: 13px;
+}
+
+.font-14px {
+    font-size: 14px;
+}
+
+.badge-custom-margin-top {
+    margin-top: 30%
+
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.text-align-right {
+    text-align: right;
+}
+.text-align-left {
+    text-align: left;
+}
+
+.list-style-type-none {
+    list-style-type: none;
+}
+

@@ -1,0 +1,251 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title></title>
+</head>
+
+<body>
+
+<div class="row" ng-controller="SessionController as session" ng-init="session.init()">
+    <div class="page-header">
+        <h3>
+            <div class="col-xs-9">Session List</div>
+
+            <div class="input-group custom-search-form col-xs-3">
+
+
+                <input class="form-control" type="text" placeholder="Search..." ng-model="search"
+                       ng-keyup="searchQuery()">
+                        <span class="input-group-addon">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    <select class="form-control" ng-change="session.fetchSessionOnTheBasisOfSessionStat()" ng-model="session.sessionStat">
+                        <option>ALL</option>
+                        <option ng-repeat="sessionStat in session.sessionStatList ">{{sessionStat}}</option>
+                    </select>
+
+            </div>
+
+        </h3>
+
+    </div>
+
+    <div>
+        <div>
+            <div class="panel panel-default">
+                <div>
+                    <div class="panel-body" ng-repeat="sessionJSON in session.sessions|filter:search track by $index">
+                        <h3 class="text-info">{{sessionJSON.paper.topic.name}}
+
+                            <div class="btn-group pull-right">
+                                <button
+                                   class="font-12px btn btn-danger fa fa-plus-circle"
+                                   ng-click="session.addToComingIntellimeet(sessionJSON)"
+                                   ng-disabled="sessionJSON.isAddedInIntellimeet">
+                                    Add To Intellimeet
+                                </button>
+                                <button
+                                        class="font-12px btn btn-danger fa fa-remove"
+                                        ng-click="session.removeFromComingIntellimeet(sessionJSON)"
+                                        ng-disabled="!sessionJSON.isAddedInIntellimeet">
+                                    Remove From Intellimeet
+                                </button>
+                            </div>
+
+                        </h3>
+                        <blockquote>
+                            <small>Agenda <span ng-show="sessionJSON.intellimeet!=null">({{sessionJSON.intellimeet.intellimeetDate}})</span></small>
+                            <p>{{sessionJSON.paper.agenda}}</p>
+                            <small>
+                                Presenter:- &nbsp;
+                                <a href=""
+                                   data-toggle="collapse"
+                                   data-target="#addPresenter{{$index}}"
+                                   class="fa fa-plus-circle">
+                                </a>
+                                <ul class="list-style-type-none">
+                                    <li ng-repeat="presenter in sessionJSON.presenters  track by $index">
+                                        <small>
+                                            <a href=""
+                                               class="fa fa-remove btn btn-default btn-xs pull-right"
+                                               title="Remove Presenter:- {{presenter}}"
+                                               data-toggle="tooltip"
+                                               ng-click="session.removePresenter(sessionJSON,presenter)"></a>
+                                            {{presenter}}
+                                        </small>
+                                    </li>
+                                </ul>
+
+                            </small>
+                            <br>
+
+                            <div id="addPresenter{{$index}}" class="collapse">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="col-xs-3">
+                                            <form name="addPresenterForm{{$index}}">
+                                                <input ng-model="session.presenter"
+                                                       name="presenter"
+                                                       placeholder="Enter Presenter Email-ID...!"
+                                                       required="required"
+                                                       uib-typeahead="email for email in session.emails| filter:$viewValue | limitTo:8"
+                                                       class="form-control" type="email">
+                                            </form>
+                                            <span ng-show="addPresenterForm{{$index}}.presenter.$invalid && addPresenterForm{{$index}}.presenter.$dirty">
+                                                <small ng-show="addPresenterForm{{$index}}.presenter.$error.email"
+                                                       class="text-danger"> Enter Valid Email-ID
+                                                </small>
+                                                <small ng-show="addPresenterForm{{$index}}.presenter.$error.required"
+                                                       class="text-danger">
+                                                    Presenter Email-ID is required
+                                                </small>
+                                            </span>
+                                        </div>
+                                        <button class="btn btn-warning fa fa-plus-square"
+                                                ng-click="session.addPresenter(sessionJSON)"
+                                                ng-disabled="addPresenterForm{{$index}}.presenter.$invalid">
+                                        </button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="btn-group ">
+                                <a href=""
+                                   class="btn btn-danger fa fa-edit btn-sm font-13px"
+                                   data-target="#updateScheduleModal" data-toggle="modal"
+                                   ng-click="session.updateSchedule(sessionJSON)">
+                                    Update Schedule
+                                </a>
+                                <a href="" data-toggle="collapse" data-target="#viewSchedule{{$index}}"
+                                   class="btn btn-danger fa fa-columns btn-sm font-13px" title="View Session Schedule">
+                                    View
+                                </a>
+                            </div>
+                        </blockquote>
+                        <div id="viewSchedule{{$index}}" class="collapse">
+                            <div class="panel panel">
+                                <div class="panel-body">
+                                    <div class="">
+                                        <blockquote>
+                                            <ul class="list-group">
+                                                <li class="list-group-item"><span class="badge">{{sessionJSON.schedule.breakFast}}</span>
+                                                    <small> Break Fast</small>
+                                                </li>
+                                                <li class="list-group-item"><span class="badge">{{sessionJSON.schedule.sessionCommencement }}</span>
+                                                    <small> Session Commencement</small>
+                                                </li>
+                                                <li class="list-group-item"><span class="badge">{{sessionJSON.schedule.lunch}}</span>
+                                                    <small> Lunch</small>
+                                                </li>
+                                                <li class="list-group-item"><span class="badge">{{sessionJSON.schedule.discussionAndFeedback}}</span>
+                                                    <small> Discussion & Feedback</small>
+                                                </li>
+                                                <li class="list-group-item"><span class="badge">{{sessionJSON.schedule.wrapUp}}</span>
+                                                    <small> Wrap Up</small>
+                                                </li>
+                                            </ul>
+                                        </blockquote>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="pull-right">
+                        <uib-pagination items-per-page="session.itemsPerPage" total-items="session.totalItems"
+                                        ng-model="session.currentPageNumber"
+                                        boundary-link-numbers="true"
+                                        rotate="false"
+                                        max-size="session.maxSize"
+                                        ng-change="session.pageChanged()"
+                                        class="pagination-sm" boundary-link-numbers="true"></uib-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="updateScheduleModal" class="modal fade" aria-hidden="true"
+             aria-labelledby="myModalLabel"
+             role="dialog"
+             tabindex="-1" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" aria-hidden="true" data-dismiss="modal" type="button">×</button>
+                        <h4 id="myModalLabel" class="modal-title"><i class="fa fa-edit"></i> Update Schedule</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <md-content layout-padding>
+                                <form name="scheduleForm">
+                                    <md-input-container class="md-block">
+                                        <label>Breakfast</label>
+                                        <input required name="breakFast" ng-model="session.breakFast">
+
+                                        <div ng-messages="topic.name.$error">
+                                            <div ng-message="required">This is required.</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container class="md-block">
+                                        <label> Session Commencement</label>
+                                        <input required name="sessionCommencement"
+                                               ng-model="session.sessionCommencement">
+
+                                        <div ng-messages="topic.name.$error">
+                                            <div ng-message="required">This is required.</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container class="md-block">
+                                        <label> Lunch</label>
+                                        <input required name="lunch" ng-model="session.lunch">
+
+                                        <div ng-messages="topic.name.$error">
+                                            <div ng-message="required">This is required.</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container class="md-block">
+                                        <label> Discussions & Feedbacks</label>
+                                        <input required name="discussionAndFeedback"
+                                               ng-model="session.discussionAndFeedback">
+
+                                        <div ng-messages="topic.name.$error">
+                                            <div ng-message="required">This is required.</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container class="md-block">
+                                        <label> Wrap Up</label>
+                                        <input required name="wrapUp" ng-model="session.wrapUp">
+
+                                        <div ng-messages="topic.name.$error">
+                                            <div ng-message="required">This is required.</div>
+                                        </div>
+                                    </md-input-container>
+                                </form>
+                            </md-content>
+                            <div>
+                                <p class="pull-right">{{name}}</p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger"
+                                data-dismiss="modal"
+                                type="button"
+                                ng-disabled="scheduleForm.breakFast.$invalid ||
+                                scheduleForm.sessionCommencement.$invalid ||
+                                scheduleForm.lunch.$invalid ||
+                                scheduleForm.discussionAndFeedback.$invalid ||
+                                scheduleForm.wrapUp.$invalid"
+                                ng-click="session.saveSchedule(session.sessionIndex)">Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
