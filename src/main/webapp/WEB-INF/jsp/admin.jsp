@@ -97,6 +97,8 @@
     <script src="./app/components/topic/topicService.js"></script>
     <script src="./app/components/dashboard/dashboardService.js"></script>
     <script src="./app/components/schedule/scheduleService.js"></script>
+    <script src="./app/components/login/loginService.js"></script>
+    <script src="./app/components/login/loginController.js"></script>
     <script src="./app/filter/filter.js"></script>
     <script src="./app/directive/directive.js"></script>
 
@@ -127,8 +129,8 @@
             <i class="fa fa-caret-down"></i>
         </a>
             <ul class="dropdown-menu dropdown-user">
-                <%--<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a></li>--%>
-                <%--<li class="divider"></li>--%>
+                <li><a href="#/resetPassword"><i class="fa fa-lock fa-fw"></i> Change Password</a></li>
+                <li class="divider"></li>
                 <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i>
                     Logout</a></li>
             </ul>

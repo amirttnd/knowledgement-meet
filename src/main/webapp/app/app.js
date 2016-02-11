@@ -1,16 +1,13 @@
-var intellimeetApp = angular.module("intellimeetApp", ["ui.router", "ngMaterial", 'ngAnimate', 'ui.bootstrap','ngNotify']);
-intellimeetApp.constant("HOST", location.protocol+"//"+window.location.host);
-intellimeetApp.constant("CURRENT_MONTH","Current Month")
+var intellimeetApp = angular.module("intellimeetApp", ["ui.router", "ngMaterial", 'ngAnimate', 'ui.bootstrap', 'ngNotify']);
+intellimeetApp.constant("HOST", location.protocol + "//" + window.location.host);
+intellimeetApp.constant("CURRENT_MONTH", "Current Month")
 intellimeetApp.config(function ($stateProvider) {
     $stateProvider
         .state("root", {
             url: "",
             templateUrl: "./app/components/dashboard/index.html"
         })
-        .state("login", {
-            url: "/login",
-            templateUrl: "./app/components/login/login.html"
-        })
+
         .state("topic", {
             url: "/topics",
             templateUrl: "./app/components/topic/list.html"
@@ -43,6 +40,11 @@ intellimeetApp.config(function ($stateProvider) {
         .state("paper", {
             url: "/paper",
             templateUrl: "./app/components/paper/list.html"
+        })
+
+        .state("login", {
+            url: "/resetPassword",
+            templateUrl: "./app/components/login/resetPasswd.html"
         })
 
 });

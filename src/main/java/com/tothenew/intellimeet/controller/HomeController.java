@@ -2,17 +2,21 @@ package com.tothenew.intellimeet.controller;
 
 import com.tothenew.intellimeet.domain.User;
 import com.tothenew.intellimeet.enums.Role;
+import com.tothenew.intellimeet.model.ResetPasswordModel;
 import com.tothenew.intellimeet.repository.UserRepository;
 import com.tothenew.intellimeet.service.UserService;
 import com.tothenew.intellimeet.util.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @Controller
 @RequestMapping("")
@@ -47,6 +51,11 @@ public class HomeController {
     public String logout(Model model) {
         model.addAttribute("logout", "Successful Logout");
         return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/home/changePassword", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, String>> changePassword(@RequestBody ResetPasswordModel resetPasswordModel) {
+        return new ResponseEntity<Map<String, String>>(userService.changePassword(resetPasswordModel.getOldPassword(), resetPasswordModel.getNewPassword()), HttpStatus.OK);
     }
 
     @RequestMapping({"/test"})
