@@ -49,7 +49,7 @@ public class SessionService {
         return sessionVOs;
     }
 
-    public List<SessionVO> findSessionOn(String sessionStat) {
+    public List<SessionVO> findAllSessionBySessionStat(String sessionStat) {
         SessionStat sessionStatInstance = null;
         List<SessionVO> sessionVOs = new ArrayList<SessionVO>();
         List<Session> sessionList;
@@ -70,9 +70,9 @@ public class SessionService {
     }
 
     public List<String> listOfSessionStat() {
-        List<String> sessionStatValue=new ArrayList<String>();
+        List<String> sessionStatValue = new ArrayList<String>();
         SessionStat[] sessionStatList = SessionStat.values();
-        for(SessionStat sessionStat:SessionStat.values()){
+        for (SessionStat sessionStat : SessionStat.values()) {
             sessionStatValue.add(sessionStat.getValue());
         }
         return sessionStatValue;

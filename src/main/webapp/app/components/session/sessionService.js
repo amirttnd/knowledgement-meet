@@ -10,10 +10,10 @@ intellimeetApp.factory("SessionService", function ($http, HOST) {
         })
     };
 
-    factory.fetchSessionOnTheBasisOfSessionStat = function (sessionStat, callback) {
+    factory.findAllSessionBySessionStat = function (sessionStat, callback) {
         $http({
             method: "GET",
-            url: HOST + "/session/fetchSessionOnTheBasisOfSessionStat/?sessionStat=" + sessionStat
+            url: HOST + "/session/findAllSessionBySessionStat/?sessionStat=" + sessionStat
         })
             .success(function (response) {
                 callback(response)

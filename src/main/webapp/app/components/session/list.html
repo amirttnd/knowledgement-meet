@@ -18,7 +18,7 @@
                         <span class="input-group-addon">
                             <i class="fa fa-search"></i>
                         </span>
-                    <select class="form-control" ng-change="session.fetchSessionOnTheBasisOfSessionStat()" ng-model="session.sessionStat">
+                    <select class="form-control" ng-change="session.findAllSessionBySessionStat()" ng-model="session.sessionStat">
                         <option>ALL</option>
                         <option ng-repeat="sessionStat in session.sessionStatList ">{{sessionStat}}</option>
                     </select>

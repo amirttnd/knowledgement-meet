@@ -51,7 +51,7 @@ intellimeetApp
                         sessionJSON.isAddedInIntellimeet = response.isAddedInIntellimeet;
                         sessionJSON.intellimeet = response.intellimeet;
                     }
-                    $this.fetchSessionOnTheBasisOfSessionStat()
+                    $this.findAllSessionBySessionStat()
                     ngNotify.set('Successfull Added in Coming Intellimeet!', 'error');
                 })
             } else {
@@ -64,7 +64,7 @@ intellimeetApp
                 sessionJSON.isAddedInIntellimeet = response.isAddedInIntellimeet;
                 sessionJSON.intellimeet = response.intellimeet
                 ngNotify.set('Successfull Removed from Coming Intellimeet!', 'error');
-                $this.fetchSessionOnTheBasisOfSessionStat()
+                $this.findAllSessionBySessionStat()
 
             })
         };
@@ -107,9 +107,9 @@ intellimeetApp
             })
         };
 
-        $this.fetchSessionOnTheBasisOfSessionStat = function () {
+        $this.findAllSessionBySessionStat = function () {
 
-            SessionService.fetchSessionOnTheBasisOfSessionStat($this.sessionStat, function (response) {
+            SessionService.findAllSessionBySessionStat($this.sessionStat, function (response) {
                 $this.sessions = response;
             })
         }
