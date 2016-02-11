@@ -54,7 +54,7 @@ public class SessionService {
         List<SessionVO> sessionVOs = new ArrayList<SessionVO>();
         List<Session> sessionList;
         try {
-            sessionStatInstance = SessionStat.valueOf(sessionStat);
+            sessionStatInstance = SessionStat.getSessionStat(sessionStat);
         } catch (Exception e) {
 
         }
@@ -69,9 +69,13 @@ public class SessionService {
         return sessionVOs;
     }
 
-    public SessionStat[] listOfSessionStat() {
+    public List<String> listOfSessionStat() {
+        List<String> sessionStatValue=new ArrayList<String>();
         SessionStat[] sessionStatList = SessionStat.values();
-        return sessionStatList;
+        for(SessionStat sessionStat:SessionStat.values()){
+            sessionStatValue.add(sessionStat.getValue());
+        }
+        return sessionStatValue;
     }
 
     public List<Session> findAll(int page, int size) {

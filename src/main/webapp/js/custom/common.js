@@ -3,7 +3,6 @@ $(document).ready(function () {
 });
 
 function showModal(modalHtmlId) {
-    console.log(modalHtmlId);
     $('#' + modalHtmlId.toString()).modal({
         show: 'true',
         backdrop: 'static',
@@ -11,7 +10,6 @@ function showModal(modalHtmlId) {
     });
 }
 function hideModal(modalHtmlId) {
-    console.log(modalHtmlId);
     $('#' + modalHtmlId).modal('hide');
 }
 

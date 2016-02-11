@@ -39,7 +39,6 @@ public class PaperController {
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Paper> create(@RequestBody PaperModel paperModel) {
         Paper paper = null;
-        System.out.println(paperModel.toString());
         try {
             paper = paperService.save(paperModel);
         } catch (ObjectNotSavedException e) {

@@ -10,7 +10,6 @@ intellimeetApp.controller("HomeController", function ($scope, $http, HOST, Sched
     };
 
     $this.showAgenda=function(sessionJSON){
-        console.log(sessionJSON);
         $this.agenda=sessionJSON.paper.agenda;
         $this.topic=sessionJSON.paper.topic.name;
         $this.schedule=sessionJSON.schedule;

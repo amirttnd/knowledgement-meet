@@ -6,10 +6,6 @@ intellimeetApp.controller("TopicController", function ($scope, $http, HOST, Topi
         console.log("Search Topic:- " + $scope.search)
     };
 
-    $this.uploadLogo = function (topicId) {
-        console.log($this.logo);
-        alert(topicId)
-    };
 
     $this.uploadFile = function (topicJSON) {
         var file = $this.logo;

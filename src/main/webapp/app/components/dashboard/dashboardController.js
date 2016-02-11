@@ -1,4 +1,4 @@
-intellimeetApp.controller("DashboardController", function ($scope, $http, HOST, DashboardService) {
+intellimeetApp.controller("DashboardController", function ($scope, $http, HOST, ngNotify, DashboardService) {
     var $this = this;
     $this.intellimeetJSON = {};
     $this.sessions = [];
@@ -11,7 +11,6 @@ intellimeetApp.controller("DashboardController", function ($scope, $http, HOST, 
     var lastIntellimeet = function () {
         DashboardService.lastIntellimeet(function (response) {
             $this.intellimeetJSON = response;
-            console.log(response)
         })
     }
 
@@ -19,7 +18,7 @@ intellimeetApp.controller("DashboardController", function ($scope, $http, HOST, 
         var date = $this.changeDate;
         DashboardService.changeIntellimeetDate(date, function (response) {
             $this.intellimeetJSON = response
-            console.log(response)
+            ngNotify.set("Successfull change knowledge meet date", "error")
         })
     }
 

@@ -17,7 +17,6 @@ intellimeetApp.controller("ScheduleController", function ($scope, $http, HOST, S
         $this.scheduleJSON = {};
 
         ScheduleService.fullDaySchedule(function (response) {
-            console.log(response);
             $this.scheduleJSON = response
         });
         $this.breakFast = $this.scheduleJSON.breakFast;

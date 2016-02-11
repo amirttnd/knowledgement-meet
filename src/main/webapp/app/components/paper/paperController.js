@@ -1,12 +1,10 @@
 intellimeetApp.controller("PaperController", function ($scope, $http, ngNotify, HOST, PaperService, TopicService) {
         var $this = this;
-        console.log(HOST);
         $scope.searchQuery = function () {
             console.log("Search Paper:- " + $scope.search)
         };
 
         $this.createNewPaper = function (paperJSON) {
-            console.log(paperJSON);
             $this.topicName = paperJSON.topicName;
             showModal("addPaperModal")
         };
@@ -23,7 +21,6 @@ intellimeetApp.controller("PaperController", function ($scope, $http, ngNotify, 
                 _addInPaper(response);
                 _addInTopic(response.topic.name);
                 ngNotify.set("Successfull Added!", "error");
-                console.log(response)
             });
 
             hideModal("addPaperModal")
@@ -34,7 +31,6 @@ intellimeetApp.controller("PaperController", function ($scope, $http, ngNotify, 
             var index = $this.papers.indexOf(paperJSON);
             if (confirm("Do You Want To Delete Paper Which is Given By " + paperJSON.givenBy + "...?"))
                 PaperService.removePaper(paperJSON.id, function (response) {
-                    console.log(response);
                     $this.papers.splice(index, 1);
                     ngNotify.set("Sccessfull Deleted!", "error")
                 })
@@ -67,7 +63,6 @@ intellimeetApp.controller("PaperController", function ($scope, $http, ngNotify, 
 
         var listOfTopicNames = function () {
             TopicService.listOfTopicNames(function (response) {
-                console.log("Topic List:- " + response);
                 $this.topics = response
             })
         };

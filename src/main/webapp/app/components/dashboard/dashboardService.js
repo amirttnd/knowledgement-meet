@@ -23,7 +23,6 @@ intellimeetApp.factory("DashboardService", function ($http, HOST) {
     }
 
     factory.changeIntellimeetDate = function (date, callback) {
-        console.log(date)
 
         $http({
             method: "PUT",

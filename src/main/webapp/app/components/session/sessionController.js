@@ -1,7 +1,7 @@
 intellimeetApp
     .controller(
     "SessionController",
-    function ($scope, $http, HOST, ngNotify, SessionService,CURRENT_MONTH) {
+    function ($scope, $http, HOST, ngNotify, SessionService, CURRENT_MONTH) {
         var $this = this;
 
         $scope.searchQuery = function () {
@@ -35,7 +35,6 @@ intellimeetApp
             if (!sessionJSON.isAddedInIntellimeet) {
                 var index = sessionJSON.presenters.indexOf(presenter);
                 SessionService.removePresenter(sessionJSON.id, presenter, function (response) {
-                    console.log(response);
                     sessionJSON.presenters.splice(index, 1);
                     ngNotify.set(presenter + ' has been removed!', 'error');
                 })
@@ -51,10 +50,9 @@ intellimeetApp
                         //$this.sessions.unshift(response)
                         sessionJSON.isAddedInIntellimeet = response.isAddedInIntellimeet;
                         sessionJSON.intellimeet = response.intellimeet;
-                        console.log(response.intellimeet.intellimeetDate)
                     }
+                    $this.fetchSessionOnTheBasisOfSessionStat()
                     ngNotify.set('Successfull Added in Coming Intellimeet!', 'error');
-                    console.log(response)
                 })
             } else {
                 ngNotify.set("Can't added in coming intellimeet because there is no presenter", 'error')
@@ -66,12 +64,12 @@ intellimeetApp
                 sessionJSON.isAddedInIntellimeet = response.isAddedInIntellimeet;
                 sessionJSON.intellimeet = response.intellimeet
                 ngNotify.set('Successfull Removed from Coming Intellimeet!', 'error');
-                console.log(response)
+                $this.fetchSessionOnTheBasisOfSessionStat()
+
             })
         };
 
         $this.updateSchedule = function (sessionJSON) {
-            console.log(sessionJSON);
             $this.sessionIndex = $this.sessions.indexOf(sessionJSON);
             $this.scheduleId = sessionJSON.schedule.id;
             $this.breakFast = sessionJSON.schedule.breakFast;
@@ -113,11 +111,10 @@ intellimeetApp
 
             SessionService.fetchSessionOnTheBasisOfSessionStat($this.sessionStat, function (response) {
                 $this.sessions = response;
-                console.log(response)
             })
         }
 
-        this.init = function () {
+        $this.init = function () {
             $this.emails = [
                 "mohd.amir@tothenew.com",
                 "ajey.singh@tothenew.com",
@@ -129,20 +126,19 @@ intellimeetApp
 
         };
         var sessionList = function () {
-            SessionService.list(
-                function (data) {
-                    $this.sessions = data;
-                    $this.maxSize = 5;
-                    $this.currentPageNumber = 1;
-                    //$this.itemsPerPage = data[0].size;
-                    //$this.totalItems = data[0].totalElements
-                })
+            SessionService.list(function (data) {
+                $this.sessions = data;
+                $this.maxSize = 5;
+                $this.currentPageNumber = 1;
+                //$this.itemsPerPage = data[0].size;
+                //$this.totalItems = data[0].totalElements
+            })
         }
 
         var listOfSessionStat = function () {
             SessionService.listOfSessionStat(function (response) {
                 $this.sessionStatList = response
-                $this.sessionStat=CURRENT_MONTH
+                $this.sessionStat = CURRENT_MONTH
             })
         }
     }

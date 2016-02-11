@@ -62,8 +62,8 @@ public class SessionController {
     }
 
     @RequestMapping(value = "/listOfSessionStat", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<SessionStat[]> listOfSessionStat() {
-        return new ResponseEntity<SessionStat[]>(sessionService.listOfSessionStat(), HttpStatus.OK);
+    public ResponseEntity<List<String>> listOfSessionStat() {
+        return new ResponseEntity<List<String>>(sessionService.listOfSessionStat(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/fetchSessionOnTheBasisOfSessionStat", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
