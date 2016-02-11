@@ -1,44 +1,30 @@
 package com.tothenew.intellimeet.service;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import com.tothenew.intellimeet.constants.IntellimeetConstants;
+import com.tothenew.intellimeet.domain.*;
 import com.tothenew.intellimeet.enums.SessionStat;
+import com.tothenew.intellimeet.model.ScheduleModel;
+import com.tothenew.intellimeet.repository.IntellimeetRepository;
+import com.tothenew.intellimeet.repository.SessionRepository;
+import com.tothenew.intellimeet.util.DateUtil;
+import com.tothenew.intellimeet.util.PageUtil;
 import com.tothenew.intellimeet.vo.SessionVO;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tothenew.intellimeet.domain.Intellimeet;
-import com.tothenew.intellimeet.domain.Paper;
-import com.tothenew.intellimeet.domain.Schedule;
-import com.tothenew.intellimeet.domain.Session;
-import com.tothenew.intellimeet.domain.Topic;
-import com.tothenew.intellimeet.model.ScheduleModel;
-import com.tothenew.intellimeet.repository.IntellimeetRepository;
-import com.tothenew.intellimeet.repository.SessionRepository;
-import com.tothenew.intellimeet.util.DateUtil;
-import com.tothenew.intellimeet.util.PageUtil;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
 public class SessionService {
     Logger log = Logger.getLogger(SessionService.class.getName());
-
-
-    public List<SessionVO> findAll() {
-        List<Session> sessionList = sessionRepository.findAll();
-        List<SessionVO> sessionVOs = new ArrayList<SessionVO>();
-        for (Session session : sessionList) {
-            sessionVOs.add(populateSessionVO(session));
-        }
-        return sessionVOs;
-    }
 
     public List<SessionVO> findAllDefault() {
         List<Session> sessionList = sessionRepository.findAllBySessionStat(SessionStat.CURRENT_MONTH);
@@ -49,24 +35,31 @@ public class SessionService {
         return sessionVOs;
     }
 
-    public List<SessionVO> findAllSessionBySessionStat(String sessionStat) {
+    public Map<String, Object> findAllSessionBySessionStat(String sessionStat, Integer page, Integer max) {
         SessionStat sessionStatInstance = null;
+        Long totalItems = 0L;
+        Map<String, Object> map = new HashMap<String, Object>();
         List<SessionVO> sessionVOs = new ArrayList<SessionVO>();
         List<Session> sessionList;
         try {
             sessionStatInstance = SessionStat.getSessionStat(sessionStat);
         } catch (Exception e) {
-
         }
         if (sessionStatInstance != null) {
-            sessionList = sessionRepository.findAllBySessionStat(sessionStatInstance);
+            sessionList = sessionRepository.findAllBySessionStat(sessionStatInstance, PageUtil.page(page, max));
+            totalItems = sessionRepository.countBySessionStat(sessionStatInstance);
         } else {
-            sessionList = sessionRepository.findAll();
+            sessionList = sessionRepository.all(PageUtil.page(page, max));
+            totalItems = sessionRepository.count();
         }
         for (Session session : sessionList) {
             sessionVOs.add(populateSessionVO(session));
         }
-        return sessionVOs;
+
+        map.put("sessions", sessionVOs);
+        map.put("totalItems", totalItems);
+        map.put("max", max);
+        return map;
     }
 
     public List<String> listOfSessionStat() {
@@ -181,6 +174,7 @@ public class SessionService {
         }
         return null;
     }
+
 
     @Autowired
     SessionRepository sessionRepository;

@@ -1,13 +1,11 @@
 package com.tothenew.intellimeet.repository;
 
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
-
+import com.tothenew.intellimeet.domain.Intellimeet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.tothenew.intellimeet.domain.Intellimeet;
+import java.sql.Timestamp;
+import java.util.List;
 
 public interface IntellimeetRepository extends JpaRepository<Intellimeet, Long> {
 	List<Intellimeet> findAll();

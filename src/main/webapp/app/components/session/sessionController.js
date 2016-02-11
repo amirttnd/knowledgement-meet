@@ -9,7 +9,7 @@ intellimeetApp
         };
 
         $this.convertMillisecondToDate = function (self) {
-            return new Date(self)
+            return new Date(self).toLocaleDateString()
         }
 
         $this.addPresenter = function (sessionJSON) {
@@ -51,7 +51,6 @@ intellimeetApp
                         sessionJSON.isAddedInIntellimeet = response.isAddedInIntellimeet;
                         sessionJSON.intellimeet = response.intellimeet;
                     }
-                    $this.findAllSessionBySessionStat()
                     ngNotify.set('Successfull Added in Coming Intellimeet!', 'error');
                 })
             } else {
@@ -64,8 +63,6 @@ intellimeetApp
                 sessionJSON.isAddedInIntellimeet = response.isAddedInIntellimeet;
                 sessionJSON.intellimeet = response.intellimeet
                 ngNotify.set('Successfull Removed from Coming Intellimeet!', 'error');
-                $this.findAllSessionBySessionStat()
-
             })
         };
 
@@ -101,16 +98,18 @@ intellimeetApp
         $this.pageChanged = function () {
             var size = $this.itemsPerPage;
             var currentPageNumber = parseInt($this.currentPageNumber) - 1;
-            SessionService.paginateList(currentPageNumber, size, function (data) {
-                $this.sessions = data[0].content;
-                $this.totalItems = data[0].totalElements
+            SessionService.paginateList($this.sessionStat, currentPageNumber, size, function (response) {
+                $this.sessions = response.sessions;
+                $this.itemsPerPage = response.max;
+                $this.totalItems = response.totalItems
             })
         };
 
         $this.findAllSessionBySessionStat = function () {
-
             SessionService.findAllSessionBySessionStat($this.sessionStat, function (response) {
-                $this.sessions = response;
+                $this.sessions = response.sessions;
+                $this.itemsPerPage = response.max;
+                $this.totalItems = response.totalItems
             })
         }
 
@@ -130,8 +129,6 @@ intellimeetApp
                 $this.sessions = data;
                 $this.maxSize = 5;
                 $this.currentPageNumber = 1;
-                //$this.itemsPerPage = data[0].size;
-                //$this.totalItems = data[0].totalElements
             })
         }
 

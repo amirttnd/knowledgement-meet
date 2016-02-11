@@ -1,18 +1,16 @@
 package com.tothenew.intellimeet;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
-import com.tothenew.intellimeet.enums.SessionStat;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.tothenew.intellimeet.domain.Intellimeet;
+import com.tothenew.intellimeet.enums.SessionStat;
 import com.tothenew.intellimeet.repository.IntellimeetRepository;
 import com.tothenew.intellimeet.repository.SessionRepository;
 import com.tothenew.intellimeet.util.DateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Component
 public class ResetAllAddedSessionInIntellimeetSchedule {

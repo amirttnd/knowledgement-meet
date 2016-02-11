@@ -1,13 +1,13 @@
 package com.tothenew.intellimeet.repository;
 
 
-import java.util.List;
+import com.tothenew.intellimeet.domain.Topic;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.tothenew.intellimeet.domain.Topic;
+import java.util.List;
 
 @Repository
 public interface TopicRepository extends CrudRepository<Topic, Long> {

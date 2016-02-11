@@ -1,7 +1,6 @@
 package com.tothenew.intellimeet.controller;
 
 import com.tothenew.intellimeet.domain.Session;
-import com.tothenew.intellimeet.enums.SessionStat;
 import com.tothenew.intellimeet.service.SessionService;
 import com.tothenew.intellimeet.vo.SessionVO;
 import org.apache.log4j.Logger;
@@ -12,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/session")
@@ -67,8 +67,8 @@ public class SessionController {
     }
 
     @RequestMapping(value = "/findAllSessionBySessionStat", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<SessionVO>> fetchSessionOnTheBasisOfSessionStat(@RequestParam("sessionStat") String sessionStat) {
-        return new ResponseEntity<List<SessionVO>>(sessionService.findAllSessionBySessionStat(sessionStat), HttpStatus.OK);
+    public ResponseEntity<Map<String,Object>> findAllSessionBySessionStat(@RequestParam("sessionStat") String sessionStat, @RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam(name = "max", defaultValue = "10") Integer max) {
+        return new ResponseEntity<Map<String,Object>>(sessionService.findAllSessionBySessionStat(sessionStat,page,max), HttpStatus.OK);
     }
 
 
