@@ -232,7 +232,7 @@
 
                     <div ng-repeat="session in home.lastIntellimeet.sessions" class="speaker-info wow fadeIn col-sm-3"
                          data-wow-delay="0s" style="height: 260px">
-                        <a href="" ng-click="home.showAgenda(session)" data-toggle="modal" data-target="#myModal">
+                        <a href="" ng-click="home.showAgenda(session)" data-toggle="modal" data-target="#myModal" title="Show Agenda">
                             <img src="{{session.paper.topic.imageSrc}}" alt="avatar"
                                  class="img-responsive center-block no-round">
                         </a>
