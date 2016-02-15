@@ -16,9 +16,9 @@ intellimeetApp
             var currentPageNumber = parseInt($this.currentPageNumber) - 1;
             if ($this.search == undefined) {
                 SessionService.paginateListFindAllBySessionStat($this.sessionStat, currentPageNumber, size, function (response) {
-                    $this.sessions = response.sessions;
-                    $this.itemsPerPage = response.max;
-                    $this.totalItems = response.totalItems
+                    $this.sessions = response.content;
+                    $this.itemsPerPage = response.size;
+                    $this.totalItems = response.totalElements
                 })
             } else {
                 SessionService.paginateListFindAllByTopicName($this.search, currentPageNumber, size, function (response) {
@@ -31,9 +31,9 @@ intellimeetApp
 
         $this.findAllSessionBySessionStat = function () {
             SessionService.findAllSessionBySessionStat($this.sessionStat, function (response) {
-                $this.sessions = response.sessions;
-                $this.itemsPerPage = response.max;
-                $this.totalItems = response.totalItems
+                $this.sessions = response.content;
+                $this.itemsPerPage = response.size;
+                $this.totalItems = response.totalElements
                 $this.currentPageNumber = 1
 
             })
@@ -136,7 +136,7 @@ intellimeetApp
                 "gaurav.sharma@tothenew.com",
                 "roni.thomas@tothenew.com"
             ];
-            _sessionList()
+            _defaultSessionList()
             _listOfSessionStat()
             _listOfTopic()
 
@@ -144,7 +144,6 @@ intellimeetApp
 
         var _findAllByTopicName = function () {
             SessionService.findAllByTopicName($this.search, function (response) {
-                console.log(response)
                 $this.sessions = response.content
                 $this.itemsPerPage = response.size;
                 $this.totalItems = response.totalElements
@@ -152,9 +151,11 @@ intellimeetApp
             })
         }
 
-        var _sessionList = function () {
-            SessionService.list(function (data) {
-                $this.sessions = data;
+        var _defaultSessionList = function () {
+            SessionService.list(function (response) {
+                $this.sessions = response.content;
+                $this.itemsPerPage = response.size;
+                $this.totalItems = response.totalElements
                 $this.maxSize = 5;
                 $this.currentPageNumber = 1;
             })

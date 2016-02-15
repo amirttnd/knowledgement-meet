@@ -27,53 +27,34 @@ import java.util.Map;
 public class SessionService {
     Logger log = Logger.getLogger(SessionService.class.getName());
 
-    public List<SessionVO> findAllDefault() {
-        List<Session> sessionList = sessionRepository.findAllBySessionStat(SessionStat.CURRENT_MONTH);
-        List<SessionVO> sessionVOs = new ArrayList<SessionVO>();
-        for (Session session : sessionList) {
-            sessionVOs.add(populateSessionVO(session));
-        }
-        return sessionVOs;
+    public Page<Session> findAllDefault(Integer page, Integer size) {
+        return sessionRepository.findAllBySessionStat(SessionStat.CURRENT_MONTH, PageUtil.page(page, size));
     }
 
-    public Map<String, Object> findAllSessionBySessionStat(String sessionStat, Integer page, Integer max) {
+    public Page<Session> findAllSessionBySessionStat(String sessionStat, Integer page, Integer size) {
         SessionStat sessionStatInstance = null;
-        Long totalItems = 0L;
-        Map<String, Object> map = new HashMap<String, Object>();
-        List<SessionVO> sessionVOs = new ArrayList<SessionVO>();
-        List<Session> sessionList;
+        Page<Session> session;
         try {
             sessionStatInstance = SessionStat.getSessionStat(sessionStat);
         } catch (Exception e) {
         }
         if (sessionStatInstance != null) {
-            sessionList = sessionRepository.findAllBySessionStat(sessionStatInstance, PageUtil.page(page, max));
-            totalItems = sessionRepository.countBySessionStat(sessionStatInstance);
+            session = sessionRepository.findAllBySessionStat(sessionStatInstance, PageUtil.page(page, size));
         } else {
-            sessionList = sessionRepository.all(PageUtil.page(page, max));
-            totalItems = sessionRepository.count();
+            session = sessionRepository.all(PageUtil.page(page, size));
         }
-        for (Session session : sessionList) {
-            sessionVOs.add(populateSessionVO(session));
-        }
-
-        map.put("sessions", sessionVOs);
-        map.put("totalItems", totalItems);
-        map.put("max", max);
-        return map;
+        return session;
     }
 
     public List<String> listOfSessionStat() {
         List<String> sessionStatValue = new ArrayList<String>();
-        SessionStat[] sessionStatList = SessionStat.values();
         for (SessionStat sessionStat : SessionStat.values()) {
             sessionStatValue.add(sessionStat.getValue());
         }
         return sessionStatValue;
     }
 
-    public List<Session> findAll(int page, int size) {
-
+    public Page<Session> findAll(int page, int size) {
         return sessionRepository.findAll(PageUtil.page(page, size));
     }
 

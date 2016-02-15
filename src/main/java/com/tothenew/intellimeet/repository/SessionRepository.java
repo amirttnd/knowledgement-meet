@@ -18,17 +18,13 @@ public interface SessionRepository extends CrudRepository<Session, Long> {
 
 
     @Query("select s from Session s")
-    List<Session> all(Pageable pageable);
+    Page<Session> all(Pageable pageable);
 
     @Query("select s from Session s where s.sessionStat=?1")
-    List<Session> findAllBySessionStat(SessionStat sessionStat);
+    Page<Session> findAllBySessionStat(SessionStat sessionStat, Pageable pageable);
 
 
-    @Query("select s from Session s where s.sessionStat=?1")
-    List<Session> findAllBySessionStat(SessionStat sessionStat, Pageable pageable);
-
-
-    List<Session> findAll(Pageable pageable);
+    Page<Session> findAll(Pageable pageable);
 
     Session findById(Long id);
 

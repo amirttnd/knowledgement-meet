@@ -20,10 +20,10 @@ public class SessionController {
     static Logger log = Logger.getLogger(SessionController.class.getName());
 
     @RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<SessionVO>> list(
+    public ResponseEntity<Page<Session>> list(
             @RequestParam(name = "page", defaultValue = "0") Integer page,
             @RequestParam(name = "size", defaultValue = "10") Integer size) {
-        return new ResponseEntity<List<SessionVO>>(sessionService.findAllDefault(), HttpStatus.OK);
+        return new ResponseEntity<Page<Session>>(sessionService.findAllDefault(page, size), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/show/{id}")
@@ -68,12 +68,12 @@ public class SessionController {
     }
 
     @RequestMapping(value = "/findAllSessionBySessionStat", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Map<String, Object>> findAllSessionBySessionStat(@RequestParam("sessionStat") String sessionStat, @RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam(name = "max", defaultValue = "10") Integer max) {
-        return new ResponseEntity<Map<String, Object>>(sessionService.findAllSessionBySessionStat(sessionStat, page, max), HttpStatus.OK);
+    public ResponseEntity<Page<Session>> findAllSessionBySessionStat(@RequestParam("sessionStat") String sessionStat, @RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam(name = "size", defaultValue = "10") Integer size) {
+        return new ResponseEntity<Page<Session>>(sessionService.findAllSessionBySessionStat(sessionStat, page, size), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/findAllByTopicName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Page<Session>> findAllByTopicName(@RequestParam("name") String name, @RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam(name = "max", defaultValue = "10") Integer size) {
+    public ResponseEntity<Page<Session>> findAllByTopicName(@RequestParam("name") String name, @RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam(name = "size", defaultValue = "10") Integer size) {
         return new ResponseEntity<Page<Session>>(sessionService.findAllByTopicName(name, page, size), HttpStatus.OK);
     }
 
