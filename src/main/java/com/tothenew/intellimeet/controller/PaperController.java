@@ -7,12 +7,14 @@ import com.tothenew.intellimeet.model.PaperModel;
 import com.tothenew.intellimeet.service.PaperService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/paper")
@@ -32,7 +34,7 @@ public class PaperController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Collection<Paper>> list(@RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam(name = "size", defaultValue = "10") Integer size) {
-        return new ResponseEntity<Collection<Paper>>(paperService.findAll(page,size),
+        return new ResponseEntity<Collection<Paper>>(paperService.findAll(page, size),
                 HttpStatus.OK);
     }
 
@@ -52,6 +54,11 @@ public class PaperController {
     public ResponseEntity<Paper> delete(@PathVariable("id") Long id) {
 
         return new ResponseEntity<Paper>(paperService.delete(id), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/findAllByTopicName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Page<Paper>> findAllByTopicName(@RequestParam(name = "name") String name, @RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam(name = "size", defaultValue = "10") Integer size) {
+        return new ResponseEntity<Page<Paper>>(paperService.findAllByTopicName(name, page, size), HttpStatus.OK);
     }
 
     @Autowired
