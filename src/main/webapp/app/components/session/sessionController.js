@@ -50,6 +50,7 @@ intellimeetApp
                         //$this.sessions.unshift(response)
                         sessionJSON.isAddedInIntellimeet = response.isAddedInIntellimeet;
                         sessionJSON.intellimeet = response.intellimeet;
+                        sessionJSON.sessionStat=response.sessionStat
                     }
                     ngNotify.set('Successfull Added in Coming Intellimeet!', 'error');
                 })
@@ -62,6 +63,7 @@ intellimeetApp
             SessionService.removeFromComingIntellimeet(sessionJSON.id, function (response) {
                 sessionJSON.isAddedInIntellimeet = response.isAddedInIntellimeet;
                 sessionJSON.intellimeet = response.intellimeet
+                sessionJSON.sessionStat=response.sessionStat
                 ngNotify.set('Successfull Removed from Coming Intellimeet!', 'error');
             })
         };

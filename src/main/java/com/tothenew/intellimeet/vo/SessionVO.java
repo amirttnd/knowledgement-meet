@@ -22,7 +22,7 @@ public class SessionVO {
     Boolean isAddedInIntellimeet = false;
 
     Schedule schedule;
-    SessionStat sessionStat;
+    String sessionStat;
 
 
     public Intellimeet getIntellimeet() {
@@ -97,11 +97,11 @@ public class SessionVO {
         this.schedule = schedule;
     }
 
-    public SessionStat getSessionStat() {
+    public String getSessionStat() {
         return sessionStat;
     }
 
-    public void setSessionStat(SessionStat sessionStat) {
+    public void setSessionStat(String sessionStat) {
         this.sessionStat = sessionStat;
     }
 }
