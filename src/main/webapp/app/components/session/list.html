@@ -24,10 +24,11 @@
                  <span class="input-group-addon">
                             <i class="fa fa-search"></i>
                         </span>
-                    <select class="form-control" ng-change="session.findAllSessionBySessionStat()" ng-model="session.sessionStat">
-                        <option>ALL</option>
-                        <option ng-repeat="sessionStat in session.sessionStatList ">{{sessionStat}}</option>
-                    </select>
+                <select class="form-control" ng-change="session.findAllSessionBySessionStat()"
+                        ng-model="session.sessionStat">
+                    <option>ALL</option>
+                    <option ng-repeat="sessionStat in session.sessionStatList ">{{sessionStat}}</option>
+                </select>
 
             </div>
 
@@ -44,9 +45,9 @@
 
                             <div class="btn-group pull-right">
                                 <button
-                                   class="font-12px btn btn-danger fa fa-plus-circle"
-                                   ng-click="session.addToComingIntellimeet(sessionJSON)"
-                                   ng-disabled="sessionJSON.isAddedInIntellimeet">
+                                        class="font-12px btn btn-danger fa fa-plus-circle"
+                                        ng-click="session.addToComingIntellimeet(sessionJSON)"
+                                        ng-disabled="sessionJSON.isAddedInIntellimeet">
                                     Add To Intellimeet
                                 </button>
                                 <button
@@ -59,13 +60,14 @@
 
                         </h3>
                         <blockquote>
-                            <small>Agenda <span ng-show="sessionJSON.intellimeet!=null">({{sessionJSON.intellimeet.intellimeetDate}})</span></small>
+                            <small>Agenda <span ng-show="sessionJSON.intellimeet!=null">({{sessionJSON.intellimeet.intellimeetDate}})</span>
+                            </small>
                             <p>{{sessionJSON.paper.agenda}}</p>
                             <small>Status:
                                 <ul class="list-style-type-none">
                                     <li>
                                         <small>
-                                            {{sessionJSON.sessionStat}}
+                                           {{sessionJSON.sessionStat}}
                                         </small>
                                     </li>
                                 </ul>

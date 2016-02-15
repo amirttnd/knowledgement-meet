@@ -1,7 +1,7 @@
 intellimeetApp.controller("PaperController", function ($scope, $http, ngNotify, HOST, PaperService, TopicService) {
         var $this = this;
         $this.searchQuery = function ($event) {
-            if ($event.which == 13) {
+            if ($event.which == 13 || $this.search == undefined) {
                 PaperService.findAllByTopicName($this.search, function (response) {
                     $this.papers = response.content;
                     $this.totalItems = response.totalElements
@@ -75,6 +75,7 @@ intellimeetApp.controller("PaperController", function ($scope, $http, ngNotify, 
 
         var paperList = function () {
             PaperService.list(function (response) {
+                console.log(response)
                 $this.papers = response.content;
                 $this.totalItems = response.totalElements
                 $this.itemsPerPage = response.size;

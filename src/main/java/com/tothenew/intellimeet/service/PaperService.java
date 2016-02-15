@@ -1,5 +1,6 @@
 package com.tothenew.intellimeet.service;
 
+import com.tothenew.intellimeet.constants.IntellimeetConstants;
 import com.tothenew.intellimeet.domain.Paper;
 import com.tothenew.intellimeet.domain.Topic;
 import com.tothenew.intellimeet.enums.TopicType;
@@ -22,7 +23,7 @@ import java.util.List;
 public class PaperService {
     Logger log = Logger.getLogger(PaperService.class.getName());
 
-    public List<Paper> findAll(Integer page, Integer size) {
+    public Page<Paper> findAll(Integer page, Integer size) {
         return paperRepository.findAll(PageUtil.page(page, size));
     }
 
@@ -71,8 +72,12 @@ public class PaperService {
         return paper;
     }
 
-  public Page<Paper> findAllByTopicName(String name, Integer page, Integer size) {
-        return paperRepository.findAllByTopicName(name, PageUtil.page(page, size));
+    public Page<Paper> findAllByTopicName(String name, Integer page, Integer size) {
+        if (name != null) {
+            return paperRepository.findAllByTopicName(name, PageUtil.page(page, size));
+        } else {
+            return paperRepository.findAll(PageUtil.page(page, IntellimeetConstants.DEFAULT_PAGE_SIZE));
+        }
     }
 
     @Autowired
