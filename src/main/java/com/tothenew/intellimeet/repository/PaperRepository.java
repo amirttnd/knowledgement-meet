@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface PaperRepository extends CrudRepository<Paper, Long> {
 
-    List<Paper> findAll(Pageable pageable);
+    Page<Paper> findAll(Pageable pageable);
 
     List<Paper> findAll(Sort sort);
 

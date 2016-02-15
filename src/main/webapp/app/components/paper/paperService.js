@@ -45,6 +45,9 @@ intellimeetApp.factory("PaperService", function ($http, HOST) {
     };
 
     factory.findAllByTopicName = function (name, callback) {
+        if (name == undefined) {
+            name = ''
+        }
         $http({
             method: "GET",
             url: HOST + "/paper/findAllByTopicName?name=" + name
@@ -53,5 +56,6 @@ intellimeetApp.factory("PaperService", function ($http, HOST) {
                 callback(response)
             })
     }
+
     return factory
 });

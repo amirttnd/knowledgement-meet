@@ -33,8 +33,8 @@ public class PaperController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Collection<Paper>> list(@RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam(name = "size", defaultValue = "10") Integer size) {
-        return new ResponseEntity<Collection<Paper>>(paperService.findAll(page, size),
+    public ResponseEntity<Page<Paper>> list(@RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam(name = "size", defaultValue = "10") Integer size) {
+        return new ResponseEntity<Page<Paper>>(paperService.findAll(page, size),
                 HttpStatus.OK);
     }
 
