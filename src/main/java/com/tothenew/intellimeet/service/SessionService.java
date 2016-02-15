@@ -171,7 +171,8 @@ public class SessionService {
             sessionVO.setPresenters(session.getPresenters());
             sessionVO.setIsAddedInIntellimeet(session.getIsAddedInIntellimeet());
             sessionVO.setSchedule(session.getSchedule());
-            sessionVO.setSessionStat(session.getSessionStat().getValue());
+            sessionVO.setSessionStat(session.getSessionStat());
+            sessionVO.setSessionStatValue(session.getSessionStat().getValue());
             sessionVO.setDateCreated(simpleDateFormat.format(session.getDateCreated()));
             sessionVO.setLastUpdated(simpleDateFormat.format(session.getLastUpdated()));
             sessionVO.setIntellimeet(session.getIntellimeet());
