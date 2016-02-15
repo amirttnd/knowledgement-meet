@@ -73,7 +73,7 @@ public class SessionController {
     }
 
     @RequestMapping(value = "/findAllByTopicName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Page<Session>> findAllByTopicName(@RequestParam("name") String name, @RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam(name = "max", defaultValue = "1") Integer size) {
+    public ResponseEntity<Page<Session>> findAllByTopicName(@RequestParam("name") String name, @RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam(name = "max", defaultValue = "10") Integer size) {
         return new ResponseEntity<Page<Session>>(sessionService.findAllByTopicName(name, page, size), HttpStatus.OK);
     }
 

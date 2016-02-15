@@ -69,6 +69,10 @@ public class Session implements Serializable {
         return sessionStat;
     }
 
+    public String getSessionStatValue() {
+        return sessionStat.getValue();
+    }
+
     public void setSessionStat(SessionStat sessionStat) {
         this.sessionStat = sessionStat;
     }

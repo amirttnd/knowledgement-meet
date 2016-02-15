@@ -1,20 +1,44 @@
 intellimeetApp
-    .controller(
-    "SessionController",
-    function ($scope, $http, HOST, ngNotify, SessionService, TopicService, CURRENT_MONTH) {
+    .controller("SessionController", function ($scope, $http, HOST, ngNotify, SessionService, TopicService, CURRENT_MONTH) {
+
         var $this = this;
 
         $this.searchQuery = function ($event) {
-            if ($event.which == 13 || $this.search == undefined) {
-                SessionService.findAllByTopicName($this.search, function (response) {
-                    $this.sessions = response.content
+            if ($event.which == 13) {
+                _findAllByTopicName()
+            } else if ($this.search == undefined) {
+                $this.findAllSessionBySessionStat()
+            }
+        };
+
+        $this.pageChanged = function () {
+            var size = $this.itemsPerPage;
+            var currentPageNumber = parseInt($this.currentPageNumber) - 1;
+            if ($this.search == undefined) {
+                SessionService.paginateListFindAllBySessionStat($this.sessionStat, currentPageNumber, size, function (response) {
+                    $this.sessions = response.sessions;
+                    $this.itemsPerPage = response.max;
+                    $this.totalItems = response.totalItems
+                })
+            } else {
+                SessionService.paginateListFindAllByTopicName($this.search, currentPageNumber, size, function (response) {
+                    $this.sessions = response.content;
                     $this.itemsPerPage = response.size;
                     $this.totalItems = response.totalElements
-                    console.log(response)
-
                 })
             }
         };
+
+        $this.findAllSessionBySessionStat = function () {
+            SessionService.findAllSessionBySessionStat($this.sessionStat, function (response) {
+                $this.sessions = response.sessions;
+                $this.itemsPerPage = response.max;
+                $this.totalItems = response.totalItems
+                $this.currentPageNumber = 1
+
+            })
+        }
+
 
         $this.convertMillisecondToDate = function (self) {
             return new Date(self).toLocaleDateString()
@@ -25,10 +49,10 @@ intellimeetApp
             if (!$this.emails.isValueExist($this.presenter)) {
                 $this.emails.push($this.presenter)
             }
+
             if (sessionJSON.sessionStat == "SCHEDULED") {
                 ngNotify.set("Session has been expire you can't add the presenter")
-            }
-            else if (!sessionJSON.presenters.isValueExist($this.presenter)) {
+            } else if (!sessionJSON.presenters.isValueExist($this.presenter)) {
                 SessionService.addPresenter(sessionJSON.id, $this.presenter, function (response) {
                     sessionJSON.presenters.push($this.presenter);
                     ngNotify.set($this.presenter + ' has been added!', 'error');
@@ -55,7 +79,6 @@ intellimeetApp
             if (sessionJSON.presenters.length > 0) {
                 SessionService.addToComingIntellimeet(sessionJSON.id, function (response) {
                     if (sessionJSON.id == response.id) {
-                        //$this.sessions.unshift(response)
                         sessionJSON.isAddedInIntellimeet = response.isAddedInIntellimeet;
                         sessionJSON.intellimeet = response.intellimeet;
                         sessionJSON.sessionStat = response.sessionStat
@@ -105,24 +128,6 @@ intellimeetApp
             })
         };
 
-        $this.pageChanged = function () {
-            var size = $this.itemsPerPage;
-            var currentPageNumber = parseInt($this.currentPageNumber) - 1;
-
-            SessionService.paginateList($this.sessionStat, currentPageNumber, size, function (response) {
-                $this.sessions = response.sessions;
-                $this.itemsPerPage = response.max;
-                $this.totalItems = response.totalItems
-            })
-        };
-
-        $this.findAllSessionBySessionStat = function () {
-            SessionService.findAllSessionBySessionStat($this.sessionStat, function (response) {
-                $this.sessions = response.sessions;
-                $this.itemsPerPage = response.max;
-                $this.totalItems = response.totalItems
-            })
-        }
 
         $this.init = function () {
             $this.emails = [
@@ -136,6 +141,17 @@ intellimeetApp
             _listOfTopic()
 
         };
+
+        var _findAllByTopicName = function () {
+            SessionService.findAllByTopicName($this.search, function (response) {
+                console.log(response)
+                $this.sessions = response.content
+                $this.itemsPerPage = response.size;
+                $this.totalItems = response.totalElements
+                $this.currentPageNumber = 1
+            })
+        }
+
         var _sessionList = function () {
             SessionService.list(function (data) {
                 $this.sessions = data;

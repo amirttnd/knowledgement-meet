@@ -30,10 +30,20 @@ intellimeetApp.factory("SessionService", function ($http, HOST) {
             })
     }
 
-    factory.paginateList = function (sessionStat, page, size, callback) {
+    factory.paginateListFindAllBySessionStat = function (sessionStat, page, size, callback) {
         $http({
             method: "GET",
             url: HOST + "/session/findAllSessionBySessionStat?sessionStat=" + sessionStat + "&page=" + page + "&size=" + size
+        })
+            .success(function (response) {
+                callback(response)
+            })
+    };
+
+    factory.paginateListFindAllByTopicName = function (name, page, size, callback) {
+        $http({
+            method: "GET",
+            url: HOST + "/session/findAllByTopicName?name=" + name + "&page=" + page + "&size=" + size
         })
             .success(function (response) {
                 callback(response)
