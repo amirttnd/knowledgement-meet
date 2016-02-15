@@ -52,7 +52,7 @@ intellimeetApp.controller("PaperController", function ($scope, $http, ngNotify, 
             var page = parseInt($this.currentPageNumber) - 1;
             var size = $this.itemsPerPage;
             PaperService.paginateList(page, size, function (response) {
-                $this.papers = response[0].content
+                $this.papers = response.content
             })
         };
 
@@ -75,9 +75,9 @@ intellimeetApp.controller("PaperController", function ($scope, $http, ngNotify, 
 
         var paperList = function () {
             PaperService.list(function (response) {
-                $this.papers = response[0].content;
-                $this.totalItems = response[0].totalElements
-                $this.itemsPerPage = response[0].size;
+                $this.papers = response.content;
+                $this.totalItems = response.totalElements
+                $this.itemsPerPage = response.size;
                 $this.maxSize = 5;
                 $this.currentPageNumber = 1;
             })

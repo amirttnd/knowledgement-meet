@@ -1,11 +1,12 @@
 intellimeetApp
     .controller(
     "SessionController",
-    function ($scope, $http, HOST, ngNotify, SessionService, CURRENT_MONTH) {
+    function ($scope, $http, HOST, ngNotify, SessionService, TopicService, CURRENT_MONTH) {
         var $this = this;
 
-        $scope.searchQuery = function () {
-            console.log("Search Session:- " + $scope.search)
+        $this.searchQuery = function ($event) {
+            if ($event.which == 13 || $this.search == undefined)
+                console.log("Search Session:- " + $this.search)
         };
 
         $this.convertMillisecondToDate = function (self) {
@@ -50,6 +51,7 @@ intellimeetApp
                         //$this.sessions.unshift(response)
                         sessionJSON.isAddedInIntellimeet = response.isAddedInIntellimeet;
                         sessionJSON.intellimeet = response.intellimeet;
+                        sessionJSON.sessionStat = response.sessionStat
                     }
                     ngNotify.set('Successfull Added in Coming Intellimeet!', 'error');
                 })
@@ -62,6 +64,7 @@ intellimeetApp
             SessionService.removeFromComingIntellimeet(sessionJSON.id, function (response) {
                 sessionJSON.isAddedInIntellimeet = response.isAddedInIntellimeet;
                 sessionJSON.intellimeet = response.intellimeet
+                sessionJSON.sessionStat = response.sessionStat
                 ngNotify.set('Successfull Removed from Coming Intellimeet!', 'error');
             })
         };
@@ -120,11 +123,12 @@ intellimeetApp
                 "gaurav.sharma@tothenew.com",
                 "roni.thomas@tothenew.com"
             ];
-            sessionList()
-            listOfSessionStat()
+            _sessionList()
+            _listOfSessionStat()
+            _listOfTopic()
 
         };
-        var sessionList = function () {
+        var _sessionList = function () {
             SessionService.list(function (data) {
                 $this.sessions = data;
                 $this.maxSize = 5;
@@ -132,7 +136,14 @@ intellimeetApp
             })
         }
 
-        var listOfSessionStat = function () {
+        var _listOfTopic = function () {
+            TopicService.listOfTopicNames(function (response) {
+                $this.topics = response
+                console.log(response)
+            })
+        }
+
+        var _listOfSessionStat = function () {
             SessionService.listOfSessionStat(function (response) {
                 $this.sessionStatList = response
                 $this.sessionStat = CURRENT_MONTH
