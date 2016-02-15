@@ -11,6 +11,7 @@ import com.tothenew.intellimeet.util.PageUtil;
 import com.tothenew.intellimeet.vo.SessionVO;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -154,6 +155,10 @@ public class SessionService {
             return sessionVO;
         }
         return null;
+    }
+
+    public Page<Session> findAllByTopicName(String name, Integer page, Integer size) {
+        return sessionRepository.findAllByTopicName(name, PageUtil.page(page, size));
     }
 
     private SessionVO populateSessionVO(Session session) {

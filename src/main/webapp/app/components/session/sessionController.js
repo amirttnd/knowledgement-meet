@@ -5,8 +5,15 @@ intellimeetApp
         var $this = this;
 
         $this.searchQuery = function ($event) {
-            if ($event.which == 13 || $this.search == undefined)
-                console.log("Search Session:- " + $this.search)
+            if ($event.which == 13 || $this.search == undefined) {
+                SessionService.findAllByTopicName($this.search, function (response) {
+                    $this.sessions = response.content
+                    $this.itemsPerPage = response.size;
+                    $this.totalItems = response.totalElements
+                    console.log(response)
+
+                })
+            }
         };
 
         $this.convertMillisecondToDate = function (self) {
@@ -51,7 +58,7 @@ intellimeetApp
                         //$this.sessions.unshift(response)
                         sessionJSON.isAddedInIntellimeet = response.isAddedInIntellimeet;
                         sessionJSON.intellimeet = response.intellimeet;
-                        sessionJSON.sessionStat=response.sessionStat
+                        sessionJSON.sessionStat = response.sessionStat
                     }
                     ngNotify.set('Successfull Added in Coming Intellimeet!', 'error');
                 })
@@ -64,7 +71,7 @@ intellimeetApp
             SessionService.removeFromComingIntellimeet(sessionJSON.id, function (response) {
                 sessionJSON.isAddedInIntellimeet = response.isAddedInIntellimeet;
                 sessionJSON.intellimeet = response.intellimeet
-                sessionJSON.sessionStat=response.sessionStat
+                sessionJSON.sessionStat = response.sessionStat
                 ngNotify.set('Successfull Removed from Coming Intellimeet!', 'error');
             })
         };
@@ -101,6 +108,7 @@ intellimeetApp
         $this.pageChanged = function () {
             var size = $this.itemsPerPage;
             var currentPageNumber = parseInt($this.currentPageNumber) - 1;
+
             SessionService.paginateList($this.sessionStat, currentPageNumber, size, function (response) {
                 $this.sessions = response.sessions;
                 $this.itemsPerPage = response.max;
@@ -139,7 +147,6 @@ intellimeetApp
         var _listOfTopic = function () {
             TopicService.listOfTopicNames(function (response) {
                 $this.topics = response
-                console.log(response)
             })
         }
 

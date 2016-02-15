@@ -5,6 +5,7 @@ import com.tothenew.intellimeet.domain.Paper;
 import com.tothenew.intellimeet.domain.Session;
 import com.tothenew.intellimeet.domain.Topic;
 import com.tothenew.intellimeet.enums.SessionStat;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -40,5 +41,9 @@ public interface SessionRepository extends CrudRepository<Session, Long> {
 
     @Transactional(readOnly = false)
     int expireAllAddedIntellimeetSessions(SessionStat sessionStat);
+
+
+    @Query("SELECT s FROM Session s where s.paper.topic.name LIKE %?1%")
+    Page<Session> findAllByTopicName(String name, Pageable pageable);
 
 }

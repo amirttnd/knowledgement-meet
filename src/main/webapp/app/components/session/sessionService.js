@@ -96,6 +96,18 @@ intellimeetApp.factory("SessionService", function ($http, HOST) {
             })
     };
 
+    factory.findAllByTopicName = function (name, callback) {
+        if (name == undefined) {
+            name = ''
+        }
+        $http({
+            method: "GET",
+            url: HOST + "/session/findAllByTopicName?name=" + name
+        })
+            .success(function (response) {
+                callback(response)
+            })
+    }
 
     return factory
 });

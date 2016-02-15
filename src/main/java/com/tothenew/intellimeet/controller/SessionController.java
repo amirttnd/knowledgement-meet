@@ -5,6 +5,7 @@ import com.tothenew.intellimeet.service.SessionService;
 import com.tothenew.intellimeet.vo.SessionVO;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -67,8 +68,13 @@ public class SessionController {
     }
 
     @RequestMapping(value = "/findAllSessionBySessionStat", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Map<String,Object>> findAllSessionBySessionStat(@RequestParam("sessionStat") String sessionStat, @RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam(name = "max", defaultValue = "10") Integer max) {
-        return new ResponseEntity<Map<String,Object>>(sessionService.findAllSessionBySessionStat(sessionStat,page,max), HttpStatus.OK);
+    public ResponseEntity<Map<String, Object>> findAllSessionBySessionStat(@RequestParam("sessionStat") String sessionStat, @RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam(name = "max", defaultValue = "10") Integer max) {
+        return new ResponseEntity<Map<String, Object>>(sessionService.findAllSessionBySessionStat(sessionStat, page, max), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/findAllByTopicName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Page<Session>> findAllByTopicName(@RequestParam("name") String name, @RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam(name = "max", defaultValue = "1") Integer size) {
+        return new ResponseEntity<Page<Session>>(sessionService.findAllByTopicName(name, page, size), HttpStatus.OK);
     }
 
 
