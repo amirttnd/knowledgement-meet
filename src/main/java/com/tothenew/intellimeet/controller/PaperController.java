@@ -57,7 +57,7 @@ public class PaperController {
     }
 
     @RequestMapping(value = "/findAllByTopicName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Page<Paper>> findAllByTopicName(@RequestParam(name = "name") String name, @RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam(name = "size", defaultValue = "50") Integer size) {
+    public ResponseEntity<Page<Paper>> findAllByTopicName(@RequestParam(name = "name") String name, @RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam(name = "size", defaultValue = "10") Integer size) {
         return new ResponseEntity<Page<Paper>>(paperService.findAllByTopicName(name, page, size), HttpStatus.OK);
     }
 

@@ -21,6 +21,19 @@ intellimeetApp.factory("PaperService", function ($http, HOST) {
             })
     };
 
+    factory.paginateListFindAllByTopicName = function (name, page, size, callback) {
+        if (name == undefined) {
+            name = ''
+        }
+        $http({
+            method: "GET",
+            url: HOST + "/paper/findAllByTopicName?name=" + name + "&page=" + page + "&size=" + size
+        })
+            .success(function (response) {
+                callback(response)
+            })
+    }
+
     factory.saveNewPaper = function (data, callback) {
         $http({
             method: 'POST',

@@ -1,7 +1,10 @@
 intellimeetApp.controller("PaperController", function ($scope, $http, ngNotify, HOST, PaperService, TopicService) {
         var $this = this;
         $this.searchQuery = function ($event) {
-            if ($event.which == 13 || $this.search == undefined) {
+            if ($this.search == undefined) {
+                _paperList()
+            }
+            else if ($event.which == 13) {
                 PaperService.findAllByTopicName($this.search, function (response) {
                     $this.papers = response.content;
                     $this.totalItems = response.totalElements
@@ -51,9 +54,17 @@ intellimeetApp.controller("PaperController", function ($scope, $http, ngNotify, 
         $this.pageChanged = function () {
             var page = parseInt($this.currentPageNumber) - 1;
             var size = $this.itemsPerPage;
-            PaperService.paginateList(page, size, function (response) {
-                $this.papers = response.content
-            })
+            if ($this.search == undefined) {
+                PaperService.paginateList(page, size, function (response) {
+                    $this.papers = response.content
+                })
+            } else {
+                PaperService.paginateListFindAllByTopicName($this.search, page, size, function (response) {
+                    $this.papers = response.content;
+                    $this.totalItems = response.totalElements
+                    $this.itemsPerPage = response.size;
+                })
+            }
         };
 
 
@@ -63,7 +74,7 @@ intellimeetApp.controller("PaperController", function ($scope, $http, ngNotify, 
             $this.isAdmin = true;
             $this.emails = ["mohd.amir@tothenew.com", "ajey.singh@tothenew.com", "gaurav.sharma@tothenew.com"];
             listOfTopicNames();
-            paperList()
+            _paperList()
 
         };
 
@@ -73,9 +84,8 @@ intellimeetApp.controller("PaperController", function ($scope, $http, ngNotify, 
             })
         };
 
-        var paperList = function () {
+        var _paperList = function () {
             PaperService.list(function (response) {
-                console.log(response)
                 $this.papers = response.content;
                 $this.totalItems = response.totalElements
                 $this.itemsPerPage = response.size;
