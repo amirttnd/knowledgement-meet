@@ -2,8 +2,15 @@ intellimeetApp.controller("TopicController", function ($scope, $http, HOST, Topi
 
     var $this = this;
 
-    $scope.searchQuery = function () {
-        console.log("Search Topic:- " + $scope.search)
+    $this.searchQuery = function ($event) {
+        if ($this.search == undefined || $this.search == '' || $this.search == null) {
+            topicList()
+        } else if ($event.which == 13) {
+            TopicService.findByTopicNameLike($this.search, function (response) {
+                $this.topics = response
+            })
+        }
+
     };
 
 
@@ -17,6 +24,7 @@ intellimeetApp.controller("TopicController", function ($scope, $http, HOST, Topi
 
     $this.init = function () {
         topicList()
+        listOfTopicNames()
     };
 
     var topicList = function () {
@@ -24,4 +32,10 @@ intellimeetApp.controller("TopicController", function ($scope, $http, HOST, Topi
             $this.topics = response
         })
     }
+
+    var listOfTopicNames = function () {
+        TopicService.listOfTopicNames(function (response) {
+            $this.topicName = response
+        })
+    };
 });

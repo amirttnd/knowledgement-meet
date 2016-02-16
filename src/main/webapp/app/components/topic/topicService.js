@@ -19,7 +19,7 @@ intellimeetApp.factory("TopicService", function ($http, HOST) {
             })
     };
 
-    factory.uploadFileToUrl = function (file, topicId, uploadUrl,callback) {
+    factory.uploadFileToUrl = function (file, topicId, uploadUrl, callback) {
         var fd = new FormData();
         fd.append('logo', file);
         fd.append("topicId", topicId);
@@ -34,5 +34,15 @@ intellimeetApp.factory("TopicService", function ($http, HOST) {
             .error(function () {
             });
     };
+
+    factory.findByTopicNameLike = function (name, callback) {
+        $http({
+            method: "GET",
+            url: HOST + "/topic/findByNameLike?name=" + name
+        })
+            .success(function (response) {
+                callback(response)
+            })
+    }
     return factory
 });

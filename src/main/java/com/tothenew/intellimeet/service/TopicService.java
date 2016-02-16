@@ -10,6 +10,7 @@ import com.tothenew.intellimeet.util.PageUtil;
 import com.tothenew.intellimeet.vo.TopicVO;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +36,7 @@ public class TopicService {
     }
 
     public List<TopicVO> findAll() {
-        List<Topic> topicList = topicRepository.findAll(PageUtil.orderByIdDesc());
+        List<Topic> topicList = topicRepository.all(PageUtil.page(0, IntellimeetConstants.DEFAULT_PAGE_SIZE));
         List<TopicVO> topicVOs = new ArrayList<TopicVO>();
         for (Topic topic : topicList) {
             topicVOs.add(populateTopicVO(topic));
@@ -59,6 +60,18 @@ public class TopicService {
             throw new ObjectNotSavedException("Could Not Saved Object");
         }
         return topic;
+    }
+
+    public List<TopicVO> findByNameLike(String name) {
+        List<Topic> topicList = new ArrayList<Topic>();
+        List<TopicVO> topicVOs = new ArrayList<TopicVO>();
+        topicList = topicRepository.findByNamelike(name);
+        if (topicList != null) {
+            for (Topic topic : topicList) {
+                topicVOs.add(populateTopicVO(topic));
+            }
+        }
+        return topicVOs;
     }
 
     private TopicVO populateTopicVO(Topic topic) {

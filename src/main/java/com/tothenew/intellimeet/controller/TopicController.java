@@ -6,6 +6,7 @@ import java.util.List;
 import com.tothenew.intellimeet.vo.TopicVO;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -81,6 +82,11 @@ public class TopicController {
     @RequestMapping(value = "/uploadLogo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Topic> uploadLogo(@RequestParam(value = "logo") MultipartFile file, @RequestParam(value = "topicId") Long id, HttpServletRequest request) {
         return new ResponseEntity<Topic>(topicService.uploadFile(file, id, request.getServletContext().getRealPath("/")), HttpStatus.OK);
+    }
+
+    @RequestMapping(value ="/findByNameLike",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<TopicVO>>findByNameLike(@RequestParam(name = "name")String name){
+        return new ResponseEntity<List<TopicVO>>(topicService.findByNameLike(name),HttpStatus.OK);
     }
 
     @Autowired
