@@ -27,23 +27,35 @@ import java.util.Map;
 public class SessionService {
     Logger log = Logger.getLogger(SessionService.class.getName());
 
-    public Page<Session> findAllDefault(Integer page, Integer size) {
-        return sessionRepository.findAllBySessionStat(SessionStat.CURRENT_MONTH, PageUtil.page(page, size));
+    public Map<String, Object> findAllDefault(Integer page, Integer size) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map =findAllSessionBySessionStat(SessionStat.CURRENT_MONTH.getValue(),page,size);
+        return map;
     }
 
-    public Page<Session> findAllSessionBySessionStat(String sessionStat, Integer page, Integer size) {
+    public Map<String, Object> findAllSessionBySessionStat(String sessionStat, Integer page, Integer max) {
         SessionStat sessionStatInstance = null;
-        Page<Session> session;
+        Map<String, Object> map = new HashMap<String, Object>();
+        List<SessionVO> sessionVOs = new ArrayList<SessionVO>();
+        Page<Session> sessions;
         try {
             sessionStatInstance = SessionStat.getSessionStat(sessionStat);
         } catch (Exception e) {
         }
         if (sessionStatInstance != null) {
-            session = sessionRepository.findAllBySessionStat(sessionStatInstance, PageUtil.page(page, size));
+            sessions = sessionRepository.findAllBySessionStat(sessionStatInstance, PageUtil.page(page, max));
         } else {
-            session = sessionRepository.all(PageUtil.page(page, size));
+            sessions = sessionRepository.all(PageUtil.page(page, max));
         }
-        return session;
+        if (sessions != null) {
+            for (Session session : sessions) {
+                sessionVOs.add(populateSessionVO(session));
+            }
+            map.put("content", sessionVOs);
+            map.put("totalElements", sessions.getTotalElements());
+            map.put("size", sessions.getSize());
+        }
+        return map;
     }
 
     public List<String> listOfSessionStat() {

@@ -31,6 +31,7 @@ intellimeetApp
 
         $this.findAllSessionBySessionStat = function () {
             SessionService.findAllSessionBySessionStat($this.sessionStat, function (response) {
+                console.log(response)
                 $this.sessions = response.content;
                 $this.itemsPerPage = response.size;
                 $this.totalItems = response.totalElements

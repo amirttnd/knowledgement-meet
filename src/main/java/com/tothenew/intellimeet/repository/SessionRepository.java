@@ -24,6 +24,7 @@ public interface SessionRepository extends CrudRepository<Session, Long> {
     Page<Session> findAllBySessionStat(SessionStat sessionStat, Pageable pageable);
 
 
+
     Page<Session> findAll(Pageable pageable);
 
     Session findById(Long id);

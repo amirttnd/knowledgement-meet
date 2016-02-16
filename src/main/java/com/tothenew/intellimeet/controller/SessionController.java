@@ -20,10 +20,10 @@ public class SessionController {
     static Logger log = Logger.getLogger(SessionController.class.getName());
 
     @RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Page<Session>> list(
+    public ResponseEntity<Map<String, Object>> list(
             @RequestParam(name = "page", defaultValue = "0") Integer page,
             @RequestParam(name = "size", defaultValue = "10") Integer size) {
-        return new ResponseEntity<Page<Session>>(sessionService.findAllDefault(page, size), HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(sessionService.findAllDefault(page, size), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/show/{id}")
@@ -68,8 +68,8 @@ public class SessionController {
     }
 
     @RequestMapping(value = "/findAllSessionBySessionStat", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Page<Session>> findAllSessionBySessionStat(@RequestParam("sessionStat") String sessionStat, @RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam(name = "size", defaultValue = "10") Integer size) {
-        return new ResponseEntity<Page<Session>>(sessionService.findAllSessionBySessionStat(sessionStat, page, size), HttpStatus.OK);
+    public ResponseEntity<Map<String, Object>> findAllSessionBySessionStat(@RequestParam("sessionStat") String sessionStat, @RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam(name = "size", defaultValue = "10") Integer size) {
+        return new ResponseEntity<Map<String, Object>>(sessionService.findAllSessionBySessionStat(sessionStat, page, size), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/findAllByTopicName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
