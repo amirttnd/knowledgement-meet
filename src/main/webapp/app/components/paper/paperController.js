@@ -72,7 +72,10 @@ intellimeetApp.controller("PaperController", function ($scope, $http, ngNotify, 
             $this.papers = [];
             $this.topics = [];
             $this.isAdmin = true;
-            $this.emails = ["mohd.amir@tothenew.com", "ajey.singh@tothenew.com", "gaurav.sharma@tothenew.com"];
+
+            $.getJSON("json/email.json", function (data) {
+                $this.emails = data.emails;
+            })
             listOfTopicNames();
             _paperList()
 

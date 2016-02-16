@@ -131,12 +131,9 @@ intellimeetApp
 
 
         $this.init = function () {
-            $this.emails = [
-                "mohd.amir@tothenew.com",
-                "ajey.singh@tothenew.com",
-                "gaurav.sharma@tothenew.com",
-                "roni.thomas@tothenew.com"
-            ];
+            $.getJSON("json/email.json", function (data) {
+                $this.emails = data.emails;
+            })
             _defaultSessionList()
             _listOfSessionStat()
             _listOfTopic()
