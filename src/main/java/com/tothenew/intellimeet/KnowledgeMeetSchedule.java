@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.Timestamp;
 import java.util.Date;
 
 @Component
-public class ResetAllAddedSessionInIntellimeetSchedule {
+public class KnowledgeMeetSchedule {
 
     @Scheduled(cron="0 0 19 1/1 * ?")
     void resetAllAddedSessionInIntellimeet() {
@@ -29,6 +31,17 @@ public class ResetAllAddedSessionInIntellimeetSchedule {
             }
         }
 
+    }
+
+    @Scheduled(cron = "0 0/5 * 1/1 * ?")
+    void hitKnowledgeMeetURL(){
+        try {
+            URL url=new URL("https://knowledgemeet.herokuapp.com");
+            URLConnection urlConnection = url.openConnection();
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Autowired
