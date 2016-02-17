@@ -19,19 +19,19 @@ import java.util.List;
 @RequestMapping("/intellimeet")
 public class IntellimeetController {
 
-    @RequestMapping(value = "show/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/show/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<IntellimeetVO> show(@PathVariable("id") Long id) {
         return new ResponseEntity<IntellimeetVO>(intellimeetService.findById(id),
                 HttpStatus.OK);
     }
 
-    @RequestMapping(value = "list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<IntellimeetVO>> list() {
         return new ResponseEntity<List<IntellimeetVO>>(
                 intellimeetService.findAll(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "lastIntellimeet", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/lastIntellimeet", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<IntellimeetVO> show() {
         return new ResponseEntity<IntellimeetVO>(
                 intellimeetService.getLastIntellimeet(), HttpStatus.OK);

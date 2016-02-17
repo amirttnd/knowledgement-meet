@@ -21,7 +21,7 @@
                     <h3 class="panel-title">Please Sign In</h3>
                 </div>
                 <div class="panel-body">
-                    <form role="form" action="/admin" method="post">
+                    <form role="form" action="/login" method="post">
                         <fieldset>
                             <div class="form-group">
                                 <input class="form-control" placeholder="User Name" name="username" type="text"
@@ -46,6 +46,8 @@
                                     <span class>${param.logout}</span>
                                 </div>
                             </c:if>
+                            <input type="hidden" name="${_csrf.parameterName}"
+                                   value="${_csrf.token}"/>
                             <!-- Change this to a button or input when using this as a form -->
                             <input type="submit" class="btn btn-lg btn-success btn-block" value="Login">
                         </fieldset>

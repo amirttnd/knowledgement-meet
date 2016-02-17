@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Controller
@@ -27,18 +28,21 @@ public class HomeController {
         return new ModelAndView("home");
     }
 
-    @RequestMapping({"/admin"})
-    public String admin(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password, Model model, HttpServletRequest request) {
-        String encodePassword = MD5.encode(password);
-        User user = userRepository.findByUsernameAndPassword(username, encodePassword);
-        long count = userRepository.count();
-        if (user == null && count == 0) {
-            user = userService.createUser(username, encodePassword, Role.ADMIN);
-        } else if (user == null) {
-            model.addAttribute("error", "Invalid Username or Password");
-            return "redirect:/login";
-        }
-        model.addAttribute("username", user.getUsername());
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String admin( Model model, HttpServletRequest request,HttpSession httpSession) {
+//        httpSession.setAttribute("currentUser",);
+//        System.out.println(username);
+//        String encodePassword = MD5.encode(password);
+//        User user = userRepository.findByUsernameAndPassword(username, encodePassword);
+//        long count = userRepository.count();
+//        if (user == null && count == 0) {
+//            user = userService.createUser(username, encodePassword, Role.ADMIN);
+//        } else if (user == null) {
+//            model.addAttribute("error", "Invalid Username or Password");
+//            return "redirect:/login";
+//        }
+//        model.addAttribute("username", user.getUsername());
+//        System.out.println(count);
         return "admin";
     }
 

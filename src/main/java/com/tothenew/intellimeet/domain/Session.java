@@ -173,8 +173,17 @@ public class Session implements Serializable {
 
     @Override
     public String toString() {
-        return "Session [id=" + id + ", topic=" + topic + ", paper=" + paper
-                + ", schedule=" + schedule + ", presenters=" + presenters
-                + ", isAddedInIntellimeet=" + isAddedInIntellimeet + "]";
+        return "Session{" +
+                "id=" + id +
+                ", dateCreated=" + dateCreated +
+                ", lastUpdated=" + lastUpdated +
+                ", topic=" + topic +
+                ", paper=" + paper +
+                ", schedule=" + schedule +
+                ", presenters=" + presenters +
+                ", isAddedInIntellimeet=" + isAddedInIntellimeet +
+                ", sessionStat=" + sessionStat +
+                ", intellimeet=" + intellimeet +
+                '}';
     }
 }
