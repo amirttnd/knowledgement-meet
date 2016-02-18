@@ -1,4 +1,5 @@
-intellimeetApp.controller("PaperController", function ($scope, $http, ngNotify, HOST, PaperService, TopicService) {
+intellimeetApp.controller("PaperController", function ($scope, $http, ngNotify,
+                                                       HOST, PaperService, TopicService) {
         var $this = this;
         $this.searchQuery = function ($event) {
             if ($this.search == undefined) {
@@ -114,6 +115,7 @@ intellimeetApp.controller("PaperController", function ($scope, $http, ngNotify, 
             }
         }
     }
-);
+)
+;
 
 

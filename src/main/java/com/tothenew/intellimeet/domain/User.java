@@ -4,12 +4,14 @@ package com.tothenew.intellimeet.domain;
 import com.tothenew.intellimeet.enums.Role;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,6 +25,12 @@ public class User {
     @NotBlank
     @NotEmpty
     String password;
+
+    @Column(name = "email")
+    String email;
+
+    @Column(name = "enabled")
+    Boolean enabled;
 
     @Enumerated(EnumType.STRING)
     Role role;
@@ -60,5 +68,19 @@ public class User {
         this.username = username;
     }
 
+    public String getEmail() {
+        return email;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 }

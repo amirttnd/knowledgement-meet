@@ -1,4 +1,5 @@
-intellimeetApp.controller("DashboardController", function ($scope, $http, HOST, ngNotify, DashboardService) {
+intellimeetApp.controller("DashboardController", function ($scope, $http, HOST, ngNotify, DashboardService, CSRF) {
+
     var $this = this;
     $this.intellimeetJSON = {};
     $this.sessions = [];
@@ -16,7 +17,7 @@ intellimeetApp.controller("DashboardController", function ($scope, $http, HOST, 
 
     $this.changeIntellimeetDate = function () {
         var date = $this.changeDate;
-        DashboardService.changeIntellimeetDate(date, function (response) {
+        DashboardService.changeIntellimeetDate(date,CSRF ,function (response) {
             $this.intellimeetJSON = response
             ngNotify.set("Successfull change knowledge meet date", "error")
         })

@@ -5,8 +5,17 @@ public class PaperModel {
 	String givenBy;
 	String topicName;
 	String topicType;
+    String _scrf;
 
-	public String getTopicType() {
+    public String get_scrf() {
+        return _scrf;
+    }
+
+    public void set_scrf(String _scrf) {
+        this._scrf = _scrf;
+    }
+
+    public String getTopicType() {
 		return topicType;
 	}
 

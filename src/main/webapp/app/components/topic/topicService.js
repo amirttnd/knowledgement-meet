@@ -1,4 +1,4 @@
-intellimeetApp.factory("TopicService", function ($http, HOST) {
+intellimeetApp.factory("TopicService", function ($http, HOST,CSRF) {
     var factory = {};
     factory.topicList = function (callback) {
         $http({
@@ -23,7 +23,7 @@ intellimeetApp.factory("TopicService", function ($http, HOST) {
         var fd = new FormData();
         fd.append('logo', file);
         fd.append("topicId", topicId);
-        $http.post(HOST + uploadUrl, fd, {
+        $http.post(HOST + uploadUrl+"?_csrf="+CSRF, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })

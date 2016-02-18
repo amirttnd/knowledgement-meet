@@ -1,8 +1,11 @@
 package com.tothenew.intellimeet.repository;
 
 import com.tothenew.intellimeet.domain.User;
+import com.tothenew.intellimeet.enums.Role;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 
@@ -10,4 +13,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     User findByUsernameAndPassword(String username, String password);
 
     User findById(Long id);
+
+    @Query("SELECT COUNT(u) FROM User u where u.role=?1")
+    long countByRole(Role role);
 }

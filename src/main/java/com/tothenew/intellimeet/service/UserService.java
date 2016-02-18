@@ -5,6 +5,7 @@ import com.tothenew.intellimeet.enums.Role;
 import com.tothenew.intellimeet.repository.UserRepository;
 import com.tothenew.intellimeet.util.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,12 +16,29 @@ import java.util.Map;
 @Transactional
 public class UserService {
 
+
+    public User findOrCreateDefaultUser() {
+        User user = null;
+        long count = userRepository.countByRole(Role.ADMIN);
+        if (count == 0) {
+            user = createUser("knowledgemeet@tothenew.com", "igdefault", Role.ADMIN);
+        }
+        return user;
+    }
+
+    public User findByUsernameAndPassword(String username, String password) {
+        password = passwordEncoder.encode(password);
+        return userRepository.findByUsernameAndPassword(username, password);
+    }
+
+
     public User createUser(String username, String password, Role role) {
         User user = new User();
         user.setUsername(username);
-        user.setPassword(password);
+        user.setPassword(passwordEncoder.encode(password));
         user.setRole(role);
-        System.out.println(userRepository);
+        user.setEnabled(true);
+        user.setEmail("tech-grails-intellimeet-team@tothenew.com ");
         return userRepository.save(user);
 
     }
@@ -30,15 +48,17 @@ public class UserService {
         User user = userRepository.findById(1L);
         if (user == null) {
             status.put("msg", "User Not Found");
-        } else if (user.getPassword().equals(MD5.encode(oldPassword))) {
-            user.setPassword(MD5.encode(newPassword));
-            userRepository.save(user);
-            status.put("msg", "Password successfull change");
         } else {
-            status.put("msg", "You have entered wrong old password");
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userRepository.save(user);
+            status.put("msg", "Password successful changed");
+
         }
         return status;
     }
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     UserRepository userRepository;

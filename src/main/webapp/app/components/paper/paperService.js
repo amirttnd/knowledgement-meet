@@ -1,4 +1,4 @@
-intellimeetApp.factory("PaperService", function ($http, HOST) {
+intellimeetApp.factory("PaperService", function ($http, HOST,CSRF) {
     var factory = {};
 
     factory.list = function (callback) {
@@ -35,10 +35,11 @@ intellimeetApp.factory("PaperService", function ($http, HOST) {
     }
 
     factory.saveNewPaper = function (data, callback) {
+        console.log(CSRF);
         $http({
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            url: HOST + "/paper/create",
+            url: HOST + "/paper/create?_csrf=" + CSRF,
             data: data
         })
             .success(function (response) {

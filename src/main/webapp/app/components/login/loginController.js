@@ -5,7 +5,11 @@ intellimeetApp.controller("LoginController", function (LoginService, HOST, ngNot
         var oldPassword = $this.oldPassword
         var newPassword = $this.newPassword
         var reTypePassword = $this.reTypePassword
-        if (newPassword != reTypePassword) {
+
+        if(oldPassword==newPassword){
+            ngNotify.set("Old Password and New Should Not Be Same..!")
+        }
+        else if (newPassword != reTypePassword) {
             ngNotify.set("Re-Type Password does not match")
         } else {
             var data = {

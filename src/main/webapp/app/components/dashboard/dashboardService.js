@@ -22,17 +22,18 @@ intellimeetApp.factory("DashboardService", function ($http, HOST) {
             })
     }
 
-    factory.changeIntellimeetDate = function (date, callback) {
+    factory.changeIntellimeetDate = function (date, CSRF, callback) {
 
         $http({
             method: "PUT",
-            url: HOST + "/intellimeet/changeIntellimeetDate",
+            url: HOST + "/intellimeet/changeIntellimeetDate?_csrf=" + CSRF,
             headers: {
                 "Content-Type": "Application/json"
             },
             data: date
         })
             .success(function (response) {
+                console.log(response)
                 callback(response)
             })
     }

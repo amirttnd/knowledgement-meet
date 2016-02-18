@@ -1,6 +1,9 @@
 var intellimeetApp = angular.module("intellimeetApp", ["ui.router", "ngMaterial", 'ngAnimate', 'ui.bootstrap', 'ngNotify']);
 intellimeetApp.constant("HOST", location.protocol + "//" + window.location.host);
 intellimeetApp.constant("CURRENT_MONTH", "Current Month")
+intellimeetApp.constant("CSRF",$.cookie("_csrf"))
+
+
 intellimeetApp.config(function ($stateProvider) {
     $stateProvider
         .state("root", {

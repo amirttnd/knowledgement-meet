@@ -1,4 +1,4 @@
-intellimeetApp.factory("SessionService", function ($http, HOST) {
+intellimeetApp.factory("SessionService", function ($http, HOST, CSRF) {
     var factory = {};
 
     factory.list = function (callback) {
@@ -56,7 +56,7 @@ intellimeetApp.factory("SessionService", function ($http, HOST) {
             headers: {
                 "Content-Type": "Application/json"
             },
-            url: HOST + "/schedule/update/" + scheduleId,
+            url: HOST + "/schedule/update/?_csrf=" + CSRF + scheduleId,
             data: data
         })
             .success(function (response) {
@@ -67,7 +67,7 @@ intellimeetApp.factory("SessionService", function ($http, HOST) {
     factory.removeFromComingIntellimeet = function (id, callback) {
         $http({
             method: "DELETE",
-            url: HOST + "/session/removeSessionFromIntellimeet/" + id
+            url: HOST + "/session/removeSessionFromIntellimeet/" + id + "?_csrf=" + CSRF
         })
             .success(function (response) {
                 callback(response)
@@ -77,7 +77,7 @@ intellimeetApp.factory("SessionService", function ($http, HOST) {
     factory.addToComingIntellimeet = function (id, callback) {
         $http({
             method: "POST",
-            url: HOST + "/session/addToComingIntellimeet/" + id
+            url: HOST + "/session/addToComingIntellimeet/" + id + "?_csrf=" + CSRF
         })
             .success(function (response) {
                 callback(response)
@@ -87,7 +87,7 @@ intellimeetApp.factory("SessionService", function ($http, HOST) {
     factory.addPresenter = function (id, presenter, callback) {
         $http({
             method: 'POST',
-            url: HOST + "/session/addPresenter/" + id,
+            url: HOST + "/session/addPresenter/?_csrf=" + CSRF + id,
             data: presenter
         })
             .success(function (response) {
@@ -98,7 +98,7 @@ intellimeetApp.factory("SessionService", function ($http, HOST) {
     factory.removePresenter = function (id, presenter, callback) {
         $http({
             method: "DELETE",
-            url: HOST + "/session/removePresenter/" + id,
+            url: HOST + "/session/removePresenter/?_csrf=" + CSRF + id,
             data: presenter
         })
             .success(function (response) {

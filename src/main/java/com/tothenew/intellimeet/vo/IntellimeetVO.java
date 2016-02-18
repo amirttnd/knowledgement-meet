@@ -52,4 +52,15 @@ public class IntellimeetVO {
     public void setSessions(List<Session> sessions) {
         this.sessions = sessions;
     }
+
+    @Override
+    public String toString() {
+        return "IntellimeetVO{" +
+                "id=" + id +
+                ", intellimeetDate='" + intellimeetDate + '\'' +
+                ", sessions=" + sessions +
+                ", dateCreated='" + dateCreated + '\'' +
+                ", lastUpdated='" + lastUpdated + '\'' +
+                '}';
+    }
 }
