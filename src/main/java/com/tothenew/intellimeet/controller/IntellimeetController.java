@@ -2,14 +2,12 @@ package com.tothenew.intellimeet.controller;
 
 import com.tothenew.intellimeet.constants.IntellimeetConstants;
 import com.tothenew.intellimeet.service.IntellimeetService;
-import com.tothenew.intellimeet.util.DateUtil;
 import com.tothenew.intellimeet.vo.IntellimeetVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
