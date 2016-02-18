@@ -38,6 +38,7 @@ public class HomeController {
         httpSession.setAttribute("currentUser", auth.getPrincipal());
         CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
         Cookie cookie = new Cookie("_csrf", token.getToken());
+        System.out.println(token.getToken());
         response.addCookie(cookie);
         model.addAttribute("username", auth.getName());
         return "admin";

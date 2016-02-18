@@ -1,5 +1,5 @@
 intellimeetApp.controller("DashboardController", function ($scope, $http, HOST, ngNotify, DashboardService, CSRF) {
-
+    console.log(CSRF)
     var $this = this;
     $this.intellimeetJSON = {};
     $this.sessions = [];
