@@ -87,7 +87,7 @@ intellimeetApp.factory("SessionService", function ($http, HOST, CSRF) {
     factory.addPresenter = function (id, presenter, callback) {
         $http({
             method: 'POST',
-            url: HOST + "/session/addPresenter/?_csrf=" + CSRF + id,
+            url: HOST + "/session/addPresenter/" + id + "?_csrf=" + CSRF,
             data: presenter
         })
             .success(function (response) {
@@ -98,7 +98,7 @@ intellimeetApp.factory("SessionService", function ($http, HOST, CSRF) {
     factory.removePresenter = function (id, presenter, callback) {
         $http({
             method: "DELETE",
-            url: HOST + "/session/removePresenter/?_csrf=" + CSRF + id,
+            url: HOST + "/session/removePresenter/" + id + "?_csrf=" + CSRF,
             data: presenter
         })
             .success(function (response) {
