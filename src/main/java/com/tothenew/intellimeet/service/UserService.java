@@ -3,7 +3,6 @@ package com.tothenew.intellimeet.service;
 import com.tothenew.intellimeet.domain.User;
 import com.tothenew.intellimeet.enums.Role;
 import com.tothenew.intellimeet.repository.UserRepository;
-import com.tothenew.intellimeet.util.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
