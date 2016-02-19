@@ -56,7 +56,7 @@ intellimeetApp.factory("SessionService", function ($http, HOST, CSRF) {
             headers: {
                 "Content-Type": "Application/json"
             },
-            url: HOST + "/schedule/update/?_csrf=" + CSRF + scheduleId,
+            url: HOST + "/schedule/update/" + scheduleId+"?_csrf=" + CSRF,
             data: data
         })
             .success(function (response) {
