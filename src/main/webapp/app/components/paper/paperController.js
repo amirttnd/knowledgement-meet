@@ -20,20 +20,25 @@ intellimeetApp.controller("PaperController", function ($scope, $http, ngNotify,
         };
 
         $this.saveNewPaper = function () {
-            var data = {
-                agenda: $this.agenda,
-                givenBy: $this.givenBy,
-                topicName: $this.topicName,
-                topicType: $this.topicType
-            };
+            console.log($this.agenda.length)
+            if ($this.agenda.length >= 100) {
+                var data = {
+                    agenda: $this.agenda,
+                    givenBy: $this.givenBy,
+                    topicName: $this.topicName,
+                    topicType: $this.topicType
+                };
 
-            PaperService.saveNewPaper(data, function (response) {
-                _addInPaper(response);
-                _addInTopic(response.topic.name);
-                ngNotify.set("Successfull Added!", "error");
-            });
+                PaperService.saveNewPaper(data, function (response) {
+                    _addInPaper(response);
+                    _addInTopic(response.topic.name);
+                    ngNotify.set("Successfull Added!", "error");
+                });
 
-            hideModal("addPaperModal")
+                hideModal("addPaperModal")
+            } else {
+                ngNotify.set("Agenda should be minimum 100 character")
+            }
 
         };
 
