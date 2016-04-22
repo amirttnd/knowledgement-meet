@@ -130,16 +130,34 @@
                             </select>
                             <br>
                             <label class="text-muted">Agenda</label>
-                                <textarea required="required"
-                                          name="agenda"
-                                          class="form-control"
-                                          cols="100"
-                                          ng-minlength="100"
-                                          rows="15"
-                                          spellcheck="true"
-                                          placeholder="Agenda Minimum 100 Character"
-                                          ng-model="paper.agenda">
-                                </textarea>
+                                <!--<textarea required="required"-->
+                                          <!--name="agenda"-->
+                                          <!--class="form-control"-->
+                                          <!--cols="100"-->
+                                          <!--ng-minlength="100"-->
+                                          <!--rows="15"-->
+                                          <!--spellcheck="true"-->
+                                          <!--placeholder="Agenda Minimum 100 Character"-->
+                                          <!--ng-model="paper.agenda">-->
+                                <!--</textarea>-->
+
+                            <br>
+
+
+                            <div class="container lighter" style="width:105%;margin-left:-20px;">
+                                <div text-angular ng-model="htmlContent"
+                                     name="demo-editor"
+                                     ta-text-editor-class="border-around container"
+                                     ta-html-editor-class="border-around">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="container text-center lighter border-around">
+                                <div  class="lighter roboto">
+                                    <p ng-bind="htmlContent" class="text-left text-med text-gray"></p>
+                                </div>
+                            </div>
+                            <br>
                             <!--<small class="text-danger" ng-show="paperForm.topicName.$error.required">dfjadsjf</small>-->
                         </form>
                         <ul class="list-style-type-none">
@@ -192,5 +210,6 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>

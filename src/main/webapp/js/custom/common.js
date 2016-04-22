@@ -14,7 +14,6 @@ function hideModal(modalHtmlId) {
 }
 
 
-
 Array.prototype.isValueExist = function (value) {
     var $array = this;
     return $array.indexOf(value) >= 0 ? true : false

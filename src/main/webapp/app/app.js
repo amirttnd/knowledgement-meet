@@ -1,4 +1,4 @@
-var intellimeetApp = angular.module("intellimeetApp", ["ui.router", "ngMaterial", 'ngAnimate', 'ui.bootstrap', 'ngNotify']);
+var intellimeetApp = angular.module("intellimeetApp", ["ui.router", "ngMaterial", 'ngAnimate', 'ui.bootstrap', 'ngNotify','textAngular']);
 intellimeetApp.constant("HOST", location.protocol + "//" + window.location.host);
 intellimeetApp.constant("CURRENT_MONTH", "Current Month")
 intellimeetApp.constant("CSRF",$.cookie("_csrf"))
