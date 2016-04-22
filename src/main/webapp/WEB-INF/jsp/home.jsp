@@ -59,6 +59,13 @@
     <script src="js/modernizr.min.js"></script>
     <!-- Subtle Loading bar -->
     <script src="js/plugins/pace.js"></script>
+
+    <script src='./js/textEditor/textAngular-rangy.min.js'></script>
+
+    <script src='./js/textEditor/textAngular-sanitize.min.js'></script>
+
+    <script src='./js/textEditor/textAngular.min.js'></script>
+
     <style type="text/css">
         .speaker-slider img {
             height: 130px;
@@ -266,7 +273,7 @@
                         </div>
                         <div class="modal-body">
                             <h6>Agenda</h6>
-                            <blockquote>{{home.agenda}}</blockquote>
+                            <blockquote ng-bind-html="home.agenda"></blockquote>
                             <h6>Schedule</h6>
                             <blockquote>
                                 <small> Session Commencement : {{home.schedule.sessionCommencement}}</small>

@@ -105,10 +105,6 @@
     <script src="./js/custom/common.js"></script>
 
 
-    <link rel="author" href="http://www.twitter.com/codeandwaffles">
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-    <%--<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">--%>
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,300">
     <link rel="stylesheet" href="./css/textEditor/textEditor.css" type="text/css">
 
     <script src='./js/textEditor/textAngular-rangy.min.js'></script>

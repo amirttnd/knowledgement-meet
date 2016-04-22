@@ -1,4 +1,4 @@
-var intellimeetApp = angular.module("intellimeetWeb", []);
+var intellimeetApp = angular.module("intellimeetWeb", ['textAngular']);
 intellimeetApp.constant("HOST", location.protocol+"//"+window.location.host);
 intellimeetApp.constant("SESSION_COMMENCEMENT", "09:30");
 

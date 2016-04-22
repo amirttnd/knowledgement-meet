@@ -62,7 +62,7 @@
                         <blockquote>
                             <small>Agenda <span ng-show="sessionJSON.intellimeet!=null">({{sessionJSON.intellimeet.intellimeetDate}})</span>
                             </small>
-                            <p>{{sessionJSON.paper.agenda}}</p>
+                            <p ng-bind-html="sessionJSON.paper.agenda"></p>
                             <small>Status:
                                 <ul class="list-style-type-none">
                                     <li>
