@@ -15,7 +15,14 @@ intellimeetApp.controller("HomeController", function ($scope, $http, HOST, Sched
         $this.schedule=sessionJSON.schedule;
         $this.imageSrc=sessionJSON.paper.topic.imageSrc
     };
-
+    $this.carouselInitializer = function() {
+        $(".owl-carousel").owlCarousel({
+            items: 3,
+            navigation: true,
+            pagination: false,
+            navigationText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"]
+        });
+    };
     var fullDaySchedule = function () {
         ScheduleService.fullDaySchedule(function (resoponse) {
             $this.intellimeetDay = resoponse.intellimeetDay;
@@ -65,5 +72,67 @@ intellimeetApp.controller("HomeController", function ($scope, $http, HOST, Sched
             'seconds': seconds
         };
     }
+    $scope.items2 = [1,2,3,4,5,6,7,8,9,10];
 
 });
+
+intellimeetApp.directive("owlCarousel",function(){
+    return{
+        restrict:'A',
+        link:function(scope,element,attr){
+            $(element).owlCarousel({
+                loop: true,
+                margin: 10,
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: true
+                    },
+                    600: {
+                        items: 3,
+                        nav: false
+                    },
+                    1000: {
+                        items: 5,
+                        nav: true,
+                        loop: false
+                    }
+                }
+            })
+        }
+    }
+})
+
+intellimeetApp.directive("owlCarousel", function() {
+    return {
+        restrict: 'E',
+        transclude: false,
+        link: function (scope) {
+            scope.initCarousel = function(element) {
+                // provide any default options you want
+                var defaultOptions = {
+                };
+                var customOptions = scope.$eval($(element).attr('data-options'));
+                // combine the two options objects
+                for(var key in customOptions) {
+                    defaultOptions[key] = customOptions[key];
+                }
+                // init carousel
+                $(element).owlCarousel(defaultOptions);
+            };
+        }
+    };
+})
+    .directive('owlCarouselItem', [function() {
+        return {
+            restrict: 'A',
+            transclude: false,
+            link: function(scope, element) {
+                // wait for the last item in the ng-repeat then call init
+                if(scope.$last) {
+                    scope.initCarousel(element.parent());
+                }
+            }
+        };
+    }])

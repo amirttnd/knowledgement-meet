@@ -29,6 +29,9 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/owlCarousel/owl.carousel.min.css" rel="stylesheet">
+    <link href="./css/owlCarousel/owl.theme.default.min.css"
+          rel="stylesheet">
 
     <!-- Custom Google Font : Open Sans & Montserrat -->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
@@ -41,6 +44,7 @@
     <link href="./css/font-awesome-4.3.0/css/font-awesome.min.css"
           rel="stylesheet" type="text/css">
     <link href="css/plugins/streamline-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/owlCarousel/owl.transitions.min.css"/>
 
     <!-- Event Style -->
     <link href="css/event.css" rel="stylesheet">
@@ -65,6 +69,7 @@
     <script src='./js/textEditor/textAngular-sanitize.min.js'></script>
 
     <script src='./js/textEditor/textAngular.min.js'></script>
+    <script src='./js/ngRepeatOwlCarousel.js'></script>
 
     <style type="text/css">
         .speaker-slider img {
@@ -235,19 +240,26 @@
                     <h4>OUR SESSIONS</h4>
                 </div>
 
-                <div class="speaker-slider">
+                <div class="speaker-slide">
 
-                    <div ng-repeat="session in home.lastIntellimeet.sessions" class="speaker-info wow fadeIn col-sm-3"
-                         data-wow-delay="0s" style="height: 260px">
-                        <a href="" ng-click="home.showAgenda(session)" data-toggle="modal" data-target="#myModal" title="Show Agenda">
-                            <img src="{{session.paper.topic.imageSrc}}" alt="avatar"
-                                 class="img-responsive center-block no-round">
-                        </a>
+                    <data-owl-carousel class="owl-carousel"
+                                       data-options="{margin: 20,navigation: false, pagination: true, rewindNav : false}">
+                        <div owl-carousel-item="" ng-repeat="session in home.lastIntellimeet.sessions"
+                             style="border: 0px solid #000000"
+                             class="item text-center">
+                            <div class=" thumbnail">
 
-                        <p> {{session.paper.topic.name}}</p>
-                        <span ng-repeat="presenter in session.presenters">{{presenter}} <br></span>
-                    </div>
-
+                                <a href="" ng-click="home.showAgenda(session)" data-toggle="modal" data-target="#myModal"
+                                   title="Show Agenda">
+                                    <img src="{{session.paper.topic.imageSrc}}" alt="avatar"
+                                         style="width: 160px;height: 160px;padding: 10px"
+                                         class="">
+                                </a>
+                            </div>
+                            <div><b> {{session.paper.topic.name}}</b></div>
+                            <span class="small" ng-repeat="presenter in session.presenters">{{presenter}} <br></span>
+                        </div>
+                    </data-owl-carousel>
                     <!-- end .speaker-info -->
                 </div>
             </div>
@@ -774,6 +786,7 @@
         <script src="js/plugins/appear.js"></script>
         <script src="js/plugins/count-to.js"></script>
         <script src="js/plugins/nicescroll.js"></script>
+        <script src="./js/owlCarousel/owl.carousel.js   "></script>
 
         <!-- Google Map -->
         <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
