@@ -1,4 +1,4 @@
-intellimeetApp.controller("TopicController", function ($scope, $http, HOST, TopicService) {
+intellimeetApp.controller("TopicController", function ($scope, $http, HOST, TopicService, CLOUDE_NAME, UPLOAD_PRESET) {
 
     var $this = this;
 
@@ -21,6 +21,17 @@ intellimeetApp.controller("TopicController", function ($scope, $http, HOST, Topi
             topicJSON.imageSrc = response.imageSrc
         });
     };
+
+
+    $this.uploadFileToCloudinary = function (topicJSON) {
+        var file = $this.logo;
+        TopicService.uploadFileToCloudinary(file, function (response) {
+            console.log(response)
+            TopicService.saveCloudinaryUrl(topicJSON.id, response.secure_url, function (response) {
+                topicJSON.imageSrc = response.imageSrc
+            })
+        })
+    }
 
     $this.init = function () {
         topicList()

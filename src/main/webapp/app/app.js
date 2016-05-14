@@ -2,7 +2,8 @@ var intellimeetApp = angular.module("intellimeetApp", ["ui.router", "ngMaterial"
 intellimeetApp.constant("HOST", location.protocol + "//" + window.location.host);
 intellimeetApp.constant("CURRENT_MONTH", "Current Month")
 intellimeetApp.constant("CSRF",$.cookie("_csrf"))
-
+intellimeetApp.constant("CLOUDE_NAME","knowledgemeet")
+intellimeetApp.constant("UPLOAD_PRESET","r4zvcesz")
 intellimeetApp.config(function ($stateProvider) {
     $stateProvider
         .state("root", {

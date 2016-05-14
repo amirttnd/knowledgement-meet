@@ -69,6 +69,10 @@
 
     <script type="text/javascript" src="./js/cookie/jquery.cookie.js"></script>
     <script src="./js/sb-admin-2.js"></script>
+    <script src="./js/cloudinary/jquery.ui.widget.js"></script>
+    <script src="./js/cloudinary/jquery.iframe-transport.js"></script>
+    <script src="./js/cloudinary/jquery.fileupload.js"></script>
+    <script src="./js/cloudinary/jquery.cloudinary.js"></script>
     <script src="./app/angular.min.js"></script>
     <script src="./app/angular-ui-router.js"></script>
 

@@ -84,9 +84,14 @@ public class TopicController {
         return new ResponseEntity<Topic>(topicService.uploadFile(file, id, request.getServletContext().getRealPath("/")), HttpStatus.OK);
     }
 
-    @RequestMapping(value ="/findByNameLike",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<TopicVO>>findByNameLike(@RequestParam(name = "name")String name){
-        return new ResponseEntity<List<TopicVO>>(topicService.findByNameLike(name),HttpStatus.OK);
+    @RequestMapping(value = "/saveCloudinaryUrl", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Topic> saveCloudinaryUrl(@RequestParam(value = "imageUrl") String imageUrl, @RequestParam(value = "topicId") Long id) {
+        return new ResponseEntity<Topic>(topicService.saveCloudinaryUrl(id, imageUrl), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/findByNameLike", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<TopicVO>> findByNameLike(@RequestParam(name = "name") String name) {
+        return new ResponseEntity<List<TopicVO>>(topicService.findByNameLike(name), HttpStatus.OK);
     }
 
     @Autowired

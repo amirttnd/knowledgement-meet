@@ -47,19 +47,16 @@
                         </a>
                     </small>
                     <br>
-
                     <div id="uploadLogo{{$index}}" class="collapse">
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="col-xs-5">
                                     <form name="uploadLogoForm{{$index}}">
-                                        <input type="file" file-model="topic.logo" class="form-control" name="logo"/>
-                                        <!--<input type="file" required="required" -->
-                                               <!--ng-model="topic.logo" >-->
+                                        <input type="file" file-model="topic.logo" class="form-control " name="logo"/>
                                     </form>
                                 </div>
                                 <button class="btn btn-warning fa fa-upload"
-                                        ng-click="topic.uploadFile(topicJSON)">
+                                        ng-click="topic.uploadFileToCloudinary(topicJSON)">
                                 </button>
 
                             </div>

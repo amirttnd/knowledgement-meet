@@ -109,6 +109,12 @@ public class TopicService {
         return topic;
     }
 
+    public Topic saveCloudinaryUrl(Long id, String imageUrl) {
+        Topic topic = topicRepository.findById(id);
+        topic.setImageSrc(imageUrl);
+        return (Topic) topicRepository.save(topic);
+    }
+
     @Autowired
     TopicRepository topicRepository;
 
