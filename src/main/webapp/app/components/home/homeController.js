@@ -16,7 +16,11 @@ intellimeetApp.controller("HomeController", function ($scope, $http, HOST, Sched
             navigation: false,
             pagination: true,
             rewindNav: false,
+            autoplaySpeed:1000,
+            navSpeed:1000,
+            navRewind:true,
             responsiveClass: true,
+            autoplay:true,
             responsive: {
                 0: {
                     items: 1,
@@ -27,7 +31,7 @@ intellimeetApp.controller("HomeController", function ($scope, $http, HOST, Sched
                     nav: false
                 },
                 1000: {
-                    items: 5,
+                    items: 4,
                     nav: true,
                     loop: false
                 }
