@@ -5,7 +5,13 @@ intellimeetApp.constant("SESSION_COMMENCEMENT", "09:30");
 intellimeetApp.controller("HomeController", function ($scope, $http, HOST, ScheduleService, DashboardService, SESSION_COMMENCEMENT) {
     var $this = this;
     $this.init = function () {
-        $this.carouselOptions = {
+        $this.carouselOptions = OwlCarousel.options
+        lastIntellimeet();
+        fullDaySchedule()
+    };
+
+    var OwlCarousel = {
+        options: {
             margin: 20,
             navigation: false,
             pagination: true,
@@ -27,9 +33,7 @@ intellimeetApp.controller("HomeController", function ($scope, $http, HOST, Sched
                 }
             }
         }
-        lastIntellimeet();
-        fullDaySchedule()
-    };
+    }
 
     $this.showAgenda = function (sessionJSON) {
         $this.agenda = sessionJSON.paper.agenda;
@@ -94,9 +98,6 @@ intellimeetApp.controller("HomeController", function ($scope, $http, HOST, Sched
             'seconds': seconds
         };
     }
-
-    $scope.items2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
 });
 
 intellimeetApp.directive("owlCarousel", function () {

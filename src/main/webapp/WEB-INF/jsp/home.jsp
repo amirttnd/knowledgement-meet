@@ -69,7 +69,6 @@
     <script src='./js/textEditor/textAngular-sanitize.min.js'></script>
 
     <script src='./js/textEditor/textAngular.min.js'></script>
-    <script src='./js/ngRepeatOwlCarousel.js'></script>
 
     <style type="text/css">
         .speaker-slider img {
