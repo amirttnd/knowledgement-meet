@@ -1,21 +1,43 @@
 var intellimeetApp = angular.module("intellimeetWeb", ['textAngular']);
-intellimeetApp.constant("HOST", location.protocol+"//"+window.location.host);
+intellimeetApp.constant("HOST", location.protocol + "//" + window.location.host);
 intellimeetApp.constant("SESSION_COMMENCEMENT", "09:30");
 
 intellimeetApp.controller("HomeController", function ($scope, $http, HOST, ScheduleService, DashboardService, SESSION_COMMENCEMENT) {
     var $this = this;
     $this.init = function () {
+        $this.carouselOptions = {
+            margin: 20,
+            navigation: false,
+            pagination: true,
+            rewindNav: false,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: true
+                },
+                600: {
+                    items: 3,
+                    nav: false
+                },
+                1000: {
+                    items: 5,
+                    nav: true,
+                    loop: false
+                }
+            }
+        }
         lastIntellimeet();
         fullDaySchedule()
     };
 
-    $this.showAgenda=function(sessionJSON){
-        $this.agenda=sessionJSON.paper.agenda;
-        $this.topic=sessionJSON.paper.topic.name;
-        $this.schedule=sessionJSON.schedule;
-        $this.imageSrc=sessionJSON.paper.topic.imageSrc
+    $this.showAgenda = function (sessionJSON) {
+        $this.agenda = sessionJSON.paper.agenda;
+        $this.topic = sessionJSON.paper.topic.name;
+        $this.schedule = sessionJSON.schedule;
+        $this.imageSrc = sessionJSON.paper.topic.imageSrc
     };
-    $this.carouselInitializer = function() {
+    $this.carouselInitializer = function () {
         $(".owl-carousel").owlCarousel({
             items: 3,
             navigation: true,
@@ -72,14 +94,15 @@ intellimeetApp.controller("HomeController", function ($scope, $http, HOST, Sched
             'seconds': seconds
         };
     }
-    $scope.items2 = [1,2,3,4,5,6,7,8,9,10];
+
+    $scope.items2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 });
 
-intellimeetApp.directive("owlCarousel",function(){
-    return{
-        restrict:'A',
-        link:function(scope,element,attr){
+intellimeetApp.directive("owlCarousel", function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attr) {
             $(element).owlCarousel({
                 loop: true,
                 margin: 10,
@@ -104,18 +127,17 @@ intellimeetApp.directive("owlCarousel",function(){
     }
 })
 
-intellimeetApp.directive("owlCarousel", function() {
+intellimeetApp.directive("owlCarousel", function () {
     return {
         restrict: 'E',
         transclude: false,
         link: function (scope) {
-            scope.initCarousel = function(element) {
+            scope.initCarousel = function (element) {
                 // provide any default options you want
-                var defaultOptions = {
-                };
+                var defaultOptions = {};
                 var customOptions = scope.$eval($(element).attr('data-options'));
                 // combine the two options objects
-                for(var key in customOptions) {
+                for (var key in customOptions) {
                     defaultOptions[key] = customOptions[key];
                 }
                 // init carousel
@@ -124,13 +146,13 @@ intellimeetApp.directive("owlCarousel", function() {
         }
     };
 })
-    .directive('owlCarouselItem', [function() {
+    .directive('owlCarouselItem', [function () {
         return {
             restrict: 'A',
             transclude: false,
-            link: function(scope, element) {
+            link: function (scope, element) {
                 // wait for the last item in the ng-repeat then call init
-                if(scope.$last) {
+                if (scope.$last) {
                     scope.initCarousel(element.parent());
                 }
             }

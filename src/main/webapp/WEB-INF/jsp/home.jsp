@@ -243,13 +243,14 @@
                 <div class="speaker-slide">
 
                     <data-owl-carousel class="owl-carousel"
-                                       data-options="{margin: 20,navigation: false, pagination: true, rewindNav : false}">
+                                       data-options="{{home.carouselOptions}}">
                         <div owl-carousel-item="" ng-repeat="session in home.lastIntellimeet.sessions"
                              style="border: 0px solid #000000"
                              class="item text-center">
                             <div class=" thumbnail">
 
-                                <a href="" ng-click="home.showAgenda(session)" data-toggle="modal" data-target="#myModal"
+                                <a href="" ng-click="home.showAgenda(session)" data-toggle="modal"
+                                   data-target="#myModal"
                                    title="Show Agenda">
                                     <img src="{{session.paper.topic.imageSrc}}" alt="avatar"
                                          style="width: 160px;height: 160px;padding: 10px"
