@@ -88,6 +88,10 @@
             font-size: 24px;
         }
 
+        .ta-hidden-input{
+            display:none;
+        }
+
     </style>
 
 </head>
