@@ -278,19 +278,19 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">
+                            <h6 class="modal-title">
                                 <img src="{{home.imageSrc}}" height="32px" width="32px">
                                 {{home.topic}}
-                            </h4>
+                            </h6>
                         </div>
                         <div class="modal-body">
-                            <h6>Agenda</h6>
+                            <label>Agenda</label>
                             <blockquote ng-bind-html="home.agenda"></blockquote>
-                            <h6>Schedule</h6>
-                            <blockquote>
-                                <small> Session Commencement : {{home.schedule.sessionCommencement}}</small>
-                                <small> Lunch Timing : {{home.schedule.lunch}}</small>
-                                <small> Wrap Up : {{home.schedule.wrapUp}}</small>
+                            <label>Schedule</label>
+                            <blockquote class="small">
+                                <small> Session Commencement : <b>{{home.schedule.sessionCommencement}}</b></small>
+                                <small> Lunch Timing : <b>{{home.schedule.lunch}}</b></small>
+                                <small> Wrap Up : <b>{{home.schedule.wrapUp}}</b></small>
                             </blockquote>
                         </div>
 
